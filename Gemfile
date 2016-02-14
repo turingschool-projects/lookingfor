@@ -17,6 +17,7 @@ group :development, :test do
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'byebug'
+  gem 'faker'
 end
 
 group :test do
