@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20160214194929) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       null: false
-    t.boolean  "remote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160214194929) do
     t.string   "url"
     t.string   "location"
     t.date     "posted_date"
+    t.boolean  "remote"
     t.text     "raw_technologies", default: [],              array: true
     t.integer  "company_id"
     t.datetime "created_at",                    null: false

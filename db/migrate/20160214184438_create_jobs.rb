@@ -6,6 +6,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :url
       t.string :location
       t.date :posted_date
+      t.boolean :remote
       t.text :raw_technologies, array: true, default: []
       t.references :company, index: true, foreign_key: true
 

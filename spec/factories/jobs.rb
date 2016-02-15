@@ -8,6 +8,7 @@ FactoryGirl.define do
     raw_technologies { [[Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
                       [Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
                       Faker::Hacker.abbreviation] }
+    remote false
     company nil
   end
 end
