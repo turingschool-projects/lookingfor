@@ -1,14 +1,19 @@
 require 'rails_helper'
 
 describe JobFetcher do
-  sample_raw_entry = { title: "Lead Software Developer - Consulting & Delivery! at ThoughtWorks (Chicago, IL)",
-                     url: "http://stackoverflow.com/jobs/96921/lead-software-developer-consulting-delivery-thoughtworks",
-                     company_name: "ThoughtWorks",
-                     location: "Chicago, IL",
-                     remote: false,
-                     technologies: ["java", "javascript", "ruby", "cloud", "continuous-delivery"],
-                     description: "<p>Our developers have been contributing code to major organizations and open source projects for over 25 years now. They&rsquo;ve also been writing books, speaking at conferences, and helping push software development forward -- changing companies and even industries along the way.</p><br /><p>As consultants, we work on-site with our clients to ensure we&rsquo;re delivering the best possible solution. Our Lead Dev plays an important role in leading these projects to success.</p><br /><p>Curious what makes a developer a Lead around these parts? <em><strong>A lead is</strong></em>:</p><br /><ul><br /><li>Often the day-to-day primary point of contact with our clients</li><br /><li>Able to strategically lead a project team to successful delivery</li><br /><li>Excited to mentor, influence and lead a team of ThoughtWorkers and clients</li><br /><li>An expert in at least one language or domain, and maybe in 2 or more</li><br /></ul>",
-                     published: '2016-01-30 21:09:39 UTC' }
+  sample_raw_entry = {
+    job: {
+      title: "Node Instrumentation Engineer at New Relic (Portland, OR)",
+      url: "http://stackoverflow.com/jobs/109010/node-instrumentation-engineer-new-relic",
+      location: "Portland Oregon",
+      raw_technologies: ["c++", "python", "java", "php", "ruby"],
+      description: "<p><strong>New Relic<br></strong><strong>",
+      remote: false,
+      posted_date: "2016-02-15 16:52:38 UTC" },
+    company: {
+      name: "New Relic"
+    }
+  }
 
   let(:subject){ JobFetcher }
 
@@ -22,15 +27,17 @@ describe JobFetcher do
 
       it 'sets the name on company record' do
         action
-        expect(Company.last.name).to eq(sample_raw_entry[:company_name])
+        expect(Company.last.name).to eq(sample_raw_entry[:company][:name])
       end
 
-      it 'does assigns a job to existing company' do
+      it 'assigns a job to existing company' do
+        action
+        expect(Company.last.jobs.count).to eq(1)
       end
     end
 
     context 'with an existing company' do
-      let(:company_name){ "thoughtworks" }
+      let(:company_name){ "new relic" }
       let!(:company){ create(:company, name: company_name) }
 
       it 'does not create another company' do
@@ -38,6 +45,41 @@ describe JobFetcher do
       end
 
       it 'does assigns a job to existing company' do
+        expect{ action }.to change{ company.jobs.count }.from(0).to(1)
+      end
+    end
+  end
+
+  describe '.create_job' do
+    let(:company){ create(:company) }
+    let(:action){ subject.create_job(sample_raw_entry[:job], company) }
+    context 'when no matching job exists' do
+      it 'it creates a job belonging to a company' do
+        expect{ action }.to change{ company.jobs.count }.from(0).to(1)
+      end
+
+      it 'sets the correct attributes on the created job' do
+        action
+        job = Job.last
+        job_entry = sample_raw_entry[:job]
+        expect(job.title).to eq(job_entry[:title])
+        expect(job.description).to eq(job_entry[:description])
+        expect(job.url).to eq(job_entry[:url])
+        expect(job.location).to eq(job_entry[:location])
+        expect(job.raw_technologies).to eq(job_entry[:raw_technologies])
+        expect(job.remote).to eq(job_entry[:remote])
+        expect(job.posted_date).to eq(job_entry[:posted_date].to_date)
+      end
+
+      xit 'assigns technologies' do
+
+      end
+    end
+    context 'when matching job exists' do
+      it 'it does not create a duplicate job' do
+        action
+        expect{ action }.to_not change{ company.jobs.count }
+        expect{ action }.to_not change{ Job.count }
       end
     end
   end

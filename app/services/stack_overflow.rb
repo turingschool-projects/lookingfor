@@ -16,15 +16,18 @@ class StackOverflow < JobFetcher
   end
 
   def self.format_entry(entry)
-    {
-      title: entry.title,
-      url: entry.url,
-      company_name: location,
-      location: self.pull_company_name(entry.title),
-      technologies: entry.categories, #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
-      description: entry.summary,
-      remote: self.is_remote?(title),
-      published: entry.published
+    { job: {
+        title: entry.title,
+        url: entry.url,
+        location: self.pull_location(entry.title),
+        raw_technologies: entry.categories, #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
+        description: entry.summary,
+        remote: self.is_remote?(entry.title),
+        posted_date: entry.published
+      },
+      company: {
+        name: self.pull_company_name(entry.title)
+      }
     }
   end
 
