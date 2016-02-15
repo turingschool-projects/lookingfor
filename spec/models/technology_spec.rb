@@ -10,4 +10,11 @@ describe Technology do
   describe "Validations" do
     it { expect(instance).to validate_presence_of(:name) }
   end
+
+  describe "Callbacks" do
+    it 'downcases itself before saving' do
+      object = create(:technology, name: 'Ruby')
+      expect(object.name).to eq('ruby')
+    end
+  end
 end

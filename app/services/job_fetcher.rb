@@ -10,6 +10,8 @@ class JobFetcher
   end
 
   def self.create_job(job_attributes, company)
-    company.jobs.create(job_attributes)
+    job = company.jobs.where(title: job_attributes[:title])
+      .first_or_create(job_attributes)
+    job.assign_tech if job
   end
 end

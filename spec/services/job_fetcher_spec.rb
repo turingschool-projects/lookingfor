@@ -71,8 +71,10 @@ describe JobFetcher do
         expect(job.posted_date).to eq(job_entry[:posted_date].to_date)
       end
 
-      xit 'assigns technologies' do
-
+      it 'assigns technologies' do
+        existing_tech = create(:technology, name: 'ruby')
+        action
+        expect(Job.last.technologies.first).to eq(existing_tech)
       end
     end
     context 'when matching job exists' do
