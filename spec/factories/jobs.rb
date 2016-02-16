@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :job do
-    title { Faker::Company.profession }
+    sequence(:title, 1) { |n| [Faker::Company.profession, n].join }
     description { Faker::Company.bs }
     url { Faker::Internet.url }
     location { Faker::Address.city }
