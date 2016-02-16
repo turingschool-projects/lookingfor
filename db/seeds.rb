@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+t_names = ["ruby", "javascript", "go", "react", "ember", "clojure", "angular", "rails", "python"]
+
+t_names.each do |name|
+  Technology.create(name: name)
+end
