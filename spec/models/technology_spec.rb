@@ -9,6 +9,7 @@ describe Technology do
 
   describe "Validations" do
     it { expect(instance).to validate_presence_of(:name) }
+    it { expect(instance).to validate_uniqueness_of(:name) }
   end
 
   describe "Associations" do

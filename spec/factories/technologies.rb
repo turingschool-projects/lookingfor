@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :technology do
-    name { Faker::Company.catch_phrase }
+    sequence(:name, 1) { |n| [Faker::Company.catch_phrase, n].join }
   end
 end
