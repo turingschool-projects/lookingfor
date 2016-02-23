@@ -1,4 +1,4 @@
-require 'nokogiri'
+require 'nokogiri' # TODO: move to Gemfile
 
 class WeWorkRemotely < JobFetcher
   BASE_URI = "https://weworkremotely.com/categories/2-programming/jobs.rss"
@@ -6,7 +6,7 @@ class WeWorkRemotely < JobFetcher
   def self.scrape
     feed = self.pull_feed
     if feed.entries
-      self.format_entries(feed.entries)
+      entries = self.format_entries(feed.entries)
     end
   end
 
@@ -38,13 +38,17 @@ class WeWorkRemotely < JobFetcher
   end
 
   def self.pull_description(summary)
+    summary = summary.gsub(/<\/div>|<li>/, " ")
+                     .gsub(/&nbsp;/,"")
     description = Nokogiri::HTML(summary).text.split("\n\n\n")[-2]
     self.scrub_description(description)
   end
 
   def self.scrub_description(description)
-    description = description.gsub(/\n/, "")
-    description = description.gsub(/\t/, "")
+    description.gsub(/\n+|\t+/, " ")
+               .gsub("\"", "'")
+               .split.join(" ")
+               .strip
   end
 
   def self.pull_feed
@@ -53,9 +57,11 @@ class WeWorkRemotely < JobFetcher
   end
 end
 
-if __FILE__ == $0
-  require 'feedjira'
-  require 'pry'
+# -- Testing --
 
-  WeWorkRemotely.scrape
-end
+# if __FILE__ == $0
+#   require 'feedjira'
+#   require 'pry'
+#
+#   WeWorkRemotely.scrape
+# end
