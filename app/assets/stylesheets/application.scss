@@ -1,6 +1,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+.well {
+  background-color: skyblue;
+}
+
 li.well {
   list-style: none;
 }
