@@ -1,23 +1,25 @@
 <div class="container">
   <h1>We have found:</h1>
 
-  <h2> <%= @job_count %> jobs </h2>
-  <h2> From <%= @company_count %> companies </h2>
-  <h2> Looking for folks who know the following things: </h2>
-  <ul>
-    <% @tech_names.each do |tn| %>
-      <li><%= tn %></li>
-    <% end %>
-  </ul>
+  <div class="well">
+    <h2> <%= @job_count %> jobs </h2>
+    <h2> From <%= @company_count %> companies </h2>
+    <h2> Looking for folks who know the following things: </h2>
+    <ul>
+      <% @tech_names.each do |tn| %>
+        <li><%= tn %></li>
+      <% end %>
+    </ul>
+  </div>
 
   <h1>Jobs</h1>
   <ul class="job-list">
     <% @jobs.each do |job| %>
-        <li class="well">
-          Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
-          <br>
-          Company: <%= job.company_name %>
-        </li>
+    <li class="well">
+    Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
+    <br>
+    Company: <%= job.company_name %>
+    </li>
     <% end %>
   </ul>
 </div>
