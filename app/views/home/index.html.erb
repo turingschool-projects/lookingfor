@@ -1,13 +1,14 @@
 <div class="container">
-  <h1 class="text-center">We have found</h1>
+  <h1 class="text-center">We have Found</h1>
 
   <div class="well">
     <h2 class="text-center"> <%= @job_count %> Jobs </h2>
     <h2 class="text-center"> From <%= @company_count %> Companies </h2>
     <h2 class="text-center"> Looking for folks who know the following things</h2>
-    <ul>
+    <ul class="tech-list">
       <% @tech_names.each do |tn| %>
-        <li class="text-center no-dots"><%= tn.capitalize %></li>
+        <li class="text-center no-dots">
+          <%= tn.capitalize %></li>
       <% end %>
     </ul>
   </div>
@@ -16,11 +17,13 @@
   <ul class="job-list">
     <% @jobs.each do |job| %>
       <li class="well no-dots">
-        Company: <%= job.company_name %>
-        <br>
-        Title: <%= job.title.titleize %>
-        <br>
-        Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
+        <h4>Company: <%= job.company_name %></h4>
+        <h5>Title: <%= job.title.titleize %></h5>
+        <h5>Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %></h5>
+        <h4><u>Technologies</u></h4>
+        <% job.tech_names.each do |name| %>
+          <h5><%= name.titleize %></h5>
+        <% end %>
       </li>
     <% end %>
   </ul>
