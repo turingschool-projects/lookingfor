@@ -17,4 +17,12 @@ class Job < ActiveRecord::Base
   def company_name
     self.company ? self.company.name : 'N/A'
   end
+
+  def tech_names
+    if self.technologies
+      self.technologies.map do |raw_tech|
+        raw_tech.name
+      end
+    end
+  end
 end

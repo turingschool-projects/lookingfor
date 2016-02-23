@@ -1,33 +1,54 @@
 require 'rails_helper'
 
 feature 'listing jobs' do
-  it 'can list jobs' do
+
+  def list_setup
     company1 = create(:company, name: 'Test Company 1')
     company2 = create(:company, name: 'Test Company 2')
-    create(:job, posted_date: Date.parse('January 1, 2000'))
-    create(:job, posted_date: Date.parse('January 1, 2001'), company: company1)
+
+    job1 = create(:job, posted_date: Date.parse('January 1, 2000'))
+    job1.technologies << create(:technology, name: 'Test Technology 1')
+    job1.technologies << create(:technology, name: 'Test Technology 2')
+
+    job2 = create(:job, posted_date: Date.parse('January 1, 2001'), company: company1)
+    job2.technologies << create(:technology, name: 'Test Technology 3')
+
     create(:job, posted_date: Date.parse('January 1, 2002'), company: company2)
+  end
+
+  def pagination_setup
+    (1..25).each do |num|
+      create(:job, title: 'job ' + num.to_s, posted_date: Date.today - num)
+    end
+  end
+
+  it 'can list jobs' do
+    list_setup
     visit '/'
 
     within('li', text: 'January 1, 2000') do
       expect(page).to have_content 'Company: N/A'
+      expect(page).to have_content 'Test Technology 1'
+      expect(page).to have_content 'Test Technology 2'
+      expect(page).to_not have_content 'Test Technology 3'
     end
 
     within('li', text: 'January 1, 2001') do
       expect(page).to have_content 'Company: Test Company 1'
+      expect(page).to have_content 'Test Technology 3'
+      expect(page).to_not have_content 'Test Technology 1'
+      expect(page).to_not have_content 'Test Technology 2'
     end
 
     within('li', text: 'January 1, 2002') do
       expect(page).to have_content 'Company: Test Company 2'
+      expect(page).to_not have_content 'Test Technology 1'
+      expect(page).to_not have_content 'Test Technology 2'
     end
   end
 
   it 'lists 20 jobs per page' do
-    i = 1
-    25.times do
-      create(:job, title: 'job ' + i.to_s)
-      i += 1
-    end
+    pagination_setup
     visit '/'
 
     expect(page).to have_content 'Job 20'
