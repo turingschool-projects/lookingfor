@@ -17,12 +17,14 @@ class WeWorkRemotely < JobFetcher
   end
 
   def self.format_entry(entry)
+    summary = strip_summary(entry.summary)
+
     { job: {
         title: entry.title,
         url: entry.url,
-        location: '', # TODO
+        location: self.pull_location(summary),
         raw_technologies: '', # TODO
-        description: self.pull_description(entry.summary),
+        description: self.pull_description(summary),
         remote: true,
         posted_date: entry.published
       },
@@ -32,15 +34,24 @@ class WeWorkRemotely < JobFetcher
     }
   end
 
+  def self.strip_summary(summary)
+    summary = summary.gsub(/<\/div>|<li>/, " ")
+                     .gsub(/&nbsp;/,"")
+    Nokogiri::HTML(summary).text
+  end
+
+  def self.pull_location(summary)
+    regex = /Headquarters: (.*)\s* URL/
+    regex.match(summary)[1] rescue ''
+  end
+
   def self.pull_company_name(title)
     regex = /(.*):/
     regex.match(title)[1] rescue ''
   end
 
   def self.pull_description(summary)
-    summary = summary.gsub(/<\/div>|<li>/, " ")
-                     .gsub(/&nbsp;/,"")
-    description = Nokogiri::HTML(summary).text.split("\n\n\n")[-2]
+    description = summary.split("\n\n\n")[-2]
     self.scrub_description(description)
   end
 
