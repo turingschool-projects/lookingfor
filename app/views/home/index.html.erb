@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h1>We have found:</h1>
 
   <h2> <%= @job_count %> jobs </h2>
@@ -10,13 +10,14 @@
     <% end %>
   </ul>
 
-  <ul>
+  <h1>Jobs</h1>
+  <ul class="job-list">
     <% @jobs.each do |job| %>
-    <li>
-      Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
-      <br>
-      Company: <%= job.company_name %>
-    </li>
+        <li class="well">
+          Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
+          <br>
+          Company: <%= job.company_name %>
+        </li>
     <% end %>
   </ul>
 </div>
