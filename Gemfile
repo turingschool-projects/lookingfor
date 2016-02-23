@@ -13,6 +13,7 @@ gem 'bootstrap-sass'
 gem 'puma'
 gem 'newrelic_rpm'
 gem 'figaro'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'rspec-rails'
