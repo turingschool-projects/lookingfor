@@ -105,6 +105,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    puma (2.16.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -214,6 +215,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg (~> 0.15)
+  puma
   rails (= 4.2.5)
   rspec-rails
   sass-rails (~> 5.0)
