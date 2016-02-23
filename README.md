@@ -9,6 +9,7 @@ Backend:
 
 - Ruby
 - PostgreSQL
+- Puma Server
 
 To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [ruby-install](https://github.com/postmodern/ruby-install).
 
