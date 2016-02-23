@@ -16,11 +16,11 @@
   <ul class="job-list">
     <% @jobs.each do |job| %>
       <li class="well">
+        Company: <%= job.company_name %>
+        <br>
         Title: <%= job.title.titleize %>
         <br>
         Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
-        <br>
-        Company: <%= job.company_name %>
       </li>
     <% end %>
   </ul>
