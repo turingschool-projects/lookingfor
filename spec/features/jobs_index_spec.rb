@@ -22,4 +22,19 @@ feature 'listing jobs' do
     end
   end
 
+  it 'lists 20 jobs per page' do
+    i = 1
+    25.times do
+      create(:job, title: 'job ' + i.to_s)
+      i += 1
+    end
+    visit '/'
+
+    expect(page).to have_content 'Job 20'
+    expect(page).to_not have_content 'Job 21'
+    click_on 'Next'
+    expect(page).to have_content 'Job 21'
+    expect(page).to_not have_content 'Job 20'
+  end
+
 end

@@ -15,11 +15,18 @@
   <h1>Jobs</h1>
   <ul class="job-list">
     <% @jobs.each do |job| %>
-    <li class="well">
-    Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
-    <br>
-    Company: <%= job.company_name %>
-    </li>
+      <li class="well">
+        Title: <%= job.title.titleize %>
+        <br>
+        Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
+        <br>
+        Company: <%= job.company_name %>
+      </li>
     <% end %>
   </ul>
+
+  <div>
+    <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+  </div>
 </div>
+
