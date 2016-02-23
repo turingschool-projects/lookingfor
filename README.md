@@ -3,6 +3,11 @@ LookingFor is a rails application that pull developer job postings from the inte
 
 [Visit the App in Production](https://lookingforme.herokuapp.com/)
 
+## Documentation
+We use [basecamp](https://3.basecamp.com/3278136/projects/495148) to keep track of project information, wireframes, etc. Contact the team to be added to the project.
+
+We track upcoming work in Github Issues.
+
 ## Local Setup
 
 Backend:
