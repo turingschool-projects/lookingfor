@@ -9,4 +9,14 @@
       <li><%= tn %></li>
     <% end %>
   </ul>
+
+  <ul>
+    <% @jobs.each do |job| %>
+    <li>
+      Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %>
+      <br>
+      <%= job.company.name %>
+    </li>
+    <% end %>
+  </ul>
 </div>
