@@ -43,4 +43,14 @@ describe Job do
       end
     end
   end
+
+  describe '#company_name' do
+    it 'returns the name of a company or N/A' do
+      company = create(:company, name: 'Test Company')
+      job1 = create(:job, company: company)
+      job2 = create(:job)
+      expect(job1.company_name).to eq('Test Company')
+      expect(job2.company_name).to eq('N/A')
+    end
+  end
 end
