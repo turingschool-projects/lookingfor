@@ -54,3 +54,23 @@ To run a single test, you can do so by running the its first line:
    `git fetch upstream && git rebase upstream/master`
    You may need to push with `--force` up to your branch after resolving conflicts.
 1. When you've got everything solved, push up to your branch and send the pull request as usual.
+
+### Application Monitoring
+
+LookingFor uses [New Relic](http://newrelic.com/).
+
+In order to access the account for LookingFor, you will need to ask one of the maintainers to invite you via e-mail. New Relic is already set up with Heroku, so this is all you need to access the production data.
+
+If you want to run New Relic locally, you will also need the New Relic license key.
+
+Once you have the license key and access to the account, you'll need to set up figaro:
+
+1. Generate an application.yml file by typing in your terminal:
+
+  `$ bundle exec figaro install`
+
+2. Add the following line to your application.yml file:
+
+ `new_relic_license_key: <key provided>`
+
+3. Restart your server and the data will show up on New Relic within a few minutes.
