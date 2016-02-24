@@ -13,4 +13,12 @@ class Job < ActiveRecord::Base
     tech_matches = Technology.where(name: raw_technologies)
     self.technologies = tech_matches
   end
+
+  def company_name
+    self.company ? self.company.name : 'N/A'
+  end
+
+  def tech_names
+    self.technologies.map { |raw_tech| raw_tech.name } if self.technologies
+  end
 end

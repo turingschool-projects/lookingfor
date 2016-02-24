@@ -9,7 +9,9 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'feedjira'
+gem 'bootstrap-sass'
 gem 'puma'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'rspec-rails'
