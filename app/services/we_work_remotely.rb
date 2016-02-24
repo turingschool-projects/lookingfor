@@ -17,7 +17,6 @@ class WeWorkRemotely < JobFetcher
   def self.format_entries(entries, technologies)
     entries.map do |entry|
       formatted_entry = self.format_entry(entry, technologies)
-      byebug
       self.create_records(formatted_entry)
     end
   end
