@@ -1,35 +1,48 @@
 <div class="container">
-  <h1 class="text-center">We have Found</h1>
+  <div class="page-header">
+    <h1>Lookingfor
+      <small><%= @job_count %> Jobs from <%= @company_count %> Companies</small>
+    </h1>
+  </div>
 
-  <div class="well">
-    <h2 class="text-center"> <%= @job_count %> Jobs </h2>
-    <h2 class="text-center"> From <%= @company_count %> Companies </h2>
-    <h2 class="text-center"> Looking for folks who know the following things</h2>
-    <ul class="tech-list">
+  <div class="col-md-3">
+    <ul class="list-group">
       <% @tech_names.each do |tn| %>
-        <li class="text-center no-dots">
+        <li class="list-group-item">
           <%= tn.capitalize %></li>
       <% end %>
     </ul>
   </div>
 
-  <h1 class="text-center">Jobs</h1>
-  <ul class="job-list">
-    <% @jobs.each do |job| %>
-      <li class="well no-dots">
-        <h4>Company: <%= job.company_name %></h4>
-        <h5>Title: <%= job.title.titleize %></h5>
-        <h5>Posted Date: <%= job.posted_date.strftime('%B %e, %Y') %></h5>
-        <h4><u>Technologies</u></h4>
-        <% job.tech_names.each do |name| %>
-          <h5><%= name.titleize %></h5>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <div class="col-md-9">
+    <ul class="job-list">
+      <% @jobs.each do |job| %>
+        <li class="no-dots">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4><%= job.title.titleize %>
+                <small>
+                  @ <%= job.company_name %>
+                </small>
+              </h4>
+            </div>
+            <div class="panel-footer">
+              <% job.tech_names.each do |name| %>
+                <span class="label label-primary"><%= name.titleize %></span>
+              <% end %>
+              <span class="pull-right">
+                <%= job.posted_date.strftime('%B %e, %Y') %>
+              </span>
+              <span class="clearfix"></span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
 
-  <div>
-    <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+    <div class="text-center">
+      <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+    </div>
   </div>
 </div>
 
