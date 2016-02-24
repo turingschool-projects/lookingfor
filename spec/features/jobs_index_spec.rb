@@ -22,28 +22,31 @@ feature 'listing jobs' do
     end
   end
 
-  it 'can list jobs' do
+  it 'can list jobs by posted date' do
     list_setup
     visit '/'
 
-    within('li', text: 'January 1, 2000') do
-      expect(page).to have_content 'Company: N/A'
-      expect(page).to have_content 'Test Technology 1'
-      expect(page).to have_content 'Test Technology 2'
-      expect(page).to_not have_content 'Test Technology 3'
+    within('ul.job-list li:nth-child(1)') do
+      expect(page).to have_content 'January 1, 2002'
+      expect(page).to have_content 'Test Company 2'
+      expect(page).to_not have_content 'Test Technology 1'
+      expect(page).to_not have_content 'Test Technology 2'
     end
 
-    within('li', text: 'January 1, 2001') do
-      expect(page).to have_content 'Company: Test Company 1'
+    within('ul.job-list li:nth-child(2)') do
+      expect(page).to have_content 'January 1, 2001'
+      expect(page).to have_content 'Test Company 1'
       expect(page).to have_content 'Test Technology 3'
       expect(page).to_not have_content 'Test Technology 1'
       expect(page).to_not have_content 'Test Technology 2'
     end
 
-    within('li', text: 'January 1, 2002') do
-      expect(page).to have_content 'Company: Test Company 2'
-      expect(page).to_not have_content 'Test Technology 1'
-      expect(page).to_not have_content 'Test Technology 2'
+    within('ul.job-list li:nth-child(3)') do
+      expect(page).to have_content 'January 1, 2000'
+      expect(page).to have_content 'N/A'
+      expect(page).to have_content 'Test Technology 1'
+      expect(page).to have_content 'Test Technology 2'
+      expect(page).to_not have_content 'Test Technology 3'
     end
   end
 
