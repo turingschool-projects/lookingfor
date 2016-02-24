@@ -11,6 +11,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'feedjira'
 gem 'responders'
 gem 'active_model_serializers'
+gem 'will_paginate'
+gem 'api-pagination'
 
 group :development, :test do
   gem 'rspec-rails'
