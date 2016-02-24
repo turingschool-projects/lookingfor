@@ -49,6 +49,7 @@ describe Job do
       company = create(:company, name: 'Test Company')
       job1 = create(:job, company: company)
       job2 = create(:job)
+
       expect(job1.company_name).to eq('Test Company')
       expect(job2.company_name).to eq('N/A')
     end
@@ -58,8 +59,10 @@ describe Job do
     it 'returns empty collection or a collection of technologies' do
       job = create(:job)
       expect(job.tech_names).to eq([])
+
       job.technologies << create(:technology, name: 'Test Technology 1')
       expect(job.tech_names).to eq(['test technology 1'])
+
       job.technologies << create(:technology, name: 'Test Technology 2')
       expect(job.tech_names).to eq(['test technology 1', 'test technology 2'])
     end
