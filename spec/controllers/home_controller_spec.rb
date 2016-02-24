@@ -5,7 +5,7 @@ describe HomeController do
     it 'populates a count of jobs' do
       2.times { create(:job) }
       get :index
-      expect(assigns(:job_count)).to eq(2)
+      expect(assigns(:jobs).count).to eq(2)
     end
 
     it 'populates a count of companies' do
