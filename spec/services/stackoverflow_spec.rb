@@ -1,7 +1,23 @@
 require 'rails_helper'
 
 describe StackOverflow do
-  let(:service){ StackOverflow }
+  let(:service){ StackOverflow.new('ruby') }
+
+  describe '.scrape' do
+    let(:term){ 'ruby' }
+    let(:action){ service.scrape }
+    let!(:technology){ create(:technology, name: term) }
+
+    before :each do
+      action
+    end
+
+    it 'it should set technology on all records' do
+      jobs_without_tech = Job.includes(:jobs_technologies)
+        .where(jobs_technologies: { technology_id: nil}).count
+      expect(jobs_without_tech).to eq(0)
+    end
+  end
 
   describe '.pull_company_name' do
     it 'pulls a company from a title' do

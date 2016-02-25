@@ -1,4 +1,8 @@
 class JobFetcher
+  def create_records(entry)
+    self.class.create_records(entry)
+  end
+
   def self.create_records(entry)
     company = self.find_or_create_company(entry[:company])
     self.create_job(entry[:job], company)

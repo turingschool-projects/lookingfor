@@ -1,26 +1,32 @@
 class StackOverflow < JobFetcher
   BASE_URI = "http://stackoverflow.com/jobs/feed?tags="
 
-  def self.scrape(term='ruby')
-    feed = self.pull_feed(term)
+  attr_reader :term
+
+  def initialize(term="ruby")
+    @term = term
+  end
+
+  def scrape
+    feed = pull_feed
     if feed.entries.present?
-      a = self.format_entries(feed.entries)
+      format_entries(feed.entries)
     end
   end
 
-  def self.format_entries(entries)
+  def format_entries(entries)
     entries.map do |entry|
       formatted_entry = self.format_entry(entry)
-      self.create_records(formatted_entry)
+      create_records(formatted_entry)
     end
   end
 
-  def self.format_entry(entry)
+  def format_entry(entry)
     { job: {
         title: entry.title,
         url: entry.url,
         location: self.pull_location(entry.title),
-        raw_technologies: entry.categories, #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
+        raw_technologies: generate_raw_technologies(entry), #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
         description: entry.summary,
         remote: self.is_remote?(entry.title),
         posted_date: entry.published
@@ -31,22 +37,28 @@ class StackOverflow < JobFetcher
     }
   end
 
-  def self.pull_company_name(title)
+  def pull_company_name(title)
     regex = /at (.*?) \(/
     regex.match(title)[1] rescue ''
   end
 
-  def self.pull_location(title)
+  def pull_location(title)
     regex = /\((.*?)\)/
     regex.match(title)[1] rescue ''
   end
 
-  def self.pull_feed(term)
-    url = BASE_URI + term
-    Feedjira::Feed.fetch_and_parse url
+  def is_remote?(title)
+    /remote/i === title
   end
 
-  def self.is_remote?(title)
-    /remote/i === title
+  private
+
+  def generate_raw_technologies(entry)
+    entry.categories | [term]
+  end
+
+  def pull_feed
+    url = BASE_URI + term
+    Feedjira::Feed.fetch_and_parse url
   end
 end
