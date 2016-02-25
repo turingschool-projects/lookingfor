@@ -43,7 +43,6 @@ feature 'listing jobs' do
 
     within('ul.job-list li:nth-child(3)') do
       expect(page).to have_content 'January 1, 2000'
-      expect(page).to have_content 'N/A'
       expect(page).to have_content 'Test Technology 1'
       expect(page).to have_content 'Test Technology 2'
       expect(page).to_not have_content 'Test Technology 3'
