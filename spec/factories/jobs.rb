@@ -9,6 +9,6 @@ FactoryGirl.define do
                       [Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
                       Faker::Hacker.abbreviation] }
     remote false
-    company nil
+    company
   end
 end

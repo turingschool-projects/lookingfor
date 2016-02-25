@@ -26,7 +26,7 @@ describe JobDecorator do
     it 'returns the name of a company or N/A' do
       company = create(:company, name: 'Test Company')
       decorator1 = create(:job, company: company).decorate
-      decorator2 = create(:job).decorate
+      decorator2 = create(:job, company: nil).decorate
 
       expect(decorator1.company_name).to eq('Test Company')
       expect(decorator2.company_name).to eq('N/A')
