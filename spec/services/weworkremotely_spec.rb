@@ -11,7 +11,7 @@ describe WeWorkRemotely do
       expect(company_name).to eq('Basecamp Networks')
     end
 
-    it 'handles unmatching pattern' do
+    it 'handles unmatching pattern with an empty string' do
       title = "Basecamp Networks Computer Vision Engineer"
       company_name = service.pull_company_name(title)
 
@@ -33,7 +33,7 @@ describe WeWorkRemotely do
         expect(description).to eq('The job description')
       end
 
-      it 'handles unmatching pattern' do
+      it 'handles unmatching pattern with an empty string' do
         description = service.pull_description(invalid_summary)
 
         expect(description).to eq('')
@@ -47,7 +47,7 @@ describe WeWorkRemotely do
         expect(location).to eq('Denver, CO')
       end
 
-      it 'handles unmatching pattern' do
+      it 'handles unmatching pattern with an empty string' do
         location = service.pull_location(invalid_summary)
 
         expect(location).to eq('')
@@ -56,39 +56,43 @@ describe WeWorkRemotely do
   end
 
   describe '.pull_technologies' do
-    let(:technologies) { ['python', 'go', 'ruby', 'elixir'] }
+    let(:job_fetcher) { JobFetcher }
+
+    before(:each) do
+      allow(job_fetcher).to receive(:technologies).and_return(['python', 'go', 'ruby', 'elixir'])
+    end
 
     it 'matches technologies listed in a description' do
       description = "A python found a ruby in the mine"
-      raw_technologies = service.pull_technologies(description, technologies)
+      raw_technologies = service.pull_technologies(description)
 
       expect(raw_technologies).to eq(['python', 'ruby'])
     end
 
     it 'is case insensitive' do
       description = "Python GO ruby eLiXiR"
-      raw_technologies = service.pull_technologies(description, technologies)
+      raw_technologies = service.pull_technologies(description)
 
       expect(raw_technologies).to eq(['python', 'go', 'ruby', 'elixir'])
     end
 
-    it 'handles unmatching description' do
+    it 'handles unmatching description with an empty array' do
       description = "Excel MSPaint Visual Basic"
-      raw_technologies = service.pull_technologies(description, technologies)
+      raw_technologies = service.pull_technologies(description)
 
       expect(raw_technologies).to eq([])
     end
 
     it 'does not match a word that starts with the name of a technology' do
       description = "got" # technologies include 'go'
-      raw_technologies = service.pull_technologies(description, technologies)
+      raw_technologies = service.pull_technologies(description)
 
       expect(raw_technologies).to eq([])
     end
 
     it 'does not match a word that ends with the name of a technology' do
       description = "lego" # technologies include 'go'
-      raw_technologies = service.pull_technologies(description, technologies)
+      raw_technologies = service.pull_technologies(description)
 
       expect(raw_technologies).to eq([])
     end
