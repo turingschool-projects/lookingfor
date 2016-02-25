@@ -27,6 +27,11 @@ If you're on a Linux system with apt-get then run: `apt-get install postgresql p
   - `rake db:migrate` - Migrate the database
   - `rake db:seed` - Seed the database
 
+* You can import a semi-current copy of the production database
+  - Drop your local db: `rake db:drop`
+  - Assuming you haven't changed any of the basic defaults - run `heroku pg:pull DATABASE_URL lookingfor_development --app lookingforme`
+  - [Find out more here](https://devcenter.heroku.com/articles/heroku-postgresql#pg-push-and-pg-pull)
+
 ### Run The Application
 
 * Start the server with: `bundle exec rails s`
