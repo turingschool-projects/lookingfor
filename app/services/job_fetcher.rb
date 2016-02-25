@@ -14,4 +14,8 @@ class JobFetcher
       .first_or_create(job_attributes)
     job.assign_tech if job
   end
+
+  def self.technologies
+    Technology.pluck(:name)
+  end
 end
