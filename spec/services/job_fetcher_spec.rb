@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe JobFetcher do
-  sample_raw_entry = {
+  let(:sample_raw_entry){{
     job: {
       title: "Node Instrumentation Engineer at New Relic (Portland, OR)",
       url: "http://stackoverflow.com/jobs/109010/node-instrumentation-engineer-new-relic",
@@ -13,7 +13,7 @@ describe JobFetcher do
     company: {
       name: "New Relic"
     }
-  }
+  }}
 
   let(:subject){ JobFetcher }
 

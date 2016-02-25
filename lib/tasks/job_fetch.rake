@@ -3,7 +3,7 @@ namespace :job_fetch do
 
   task stackoverflow: :environment do
     Technology.find_each do |t|
-      StackOverflow.scrape(t.name)
+      StackOverflow.new(t.name).scrape
     end
   end
 
