@@ -1,12 +1,45 @@
-<div>
-  <h1>We have found:</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Lookingfor
+      <small>
+        <%= @jobs.total_entries %> Jobs from <%= @company_count %> Companies
+      </small>
+    </h1>
+  </div>
 
-  <h2> <%= @job_count %> jobs </h2>
-  <h2> From <%= @company_count %> companies </h2>
-  <h2> Looking for folks who know the following things: </h2>
-  <ul>
-    <% @tech_names.each do |tn| %>
-      <li><%= tn %></li>
-    <% end %>
-  </ul>
+  <div class="col-md-3">
+    <ul class="list-group">
+      <% @tech_names.each do |tn| %>
+        <li class="list-group-item"><%= tn.capitalize %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-9">
+    <ul class="job-list">
+      <% @jobs.each do |job| %>
+        <li class="no-dots">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4><%= job.decorated_title %>
+                <small> @ <%= job.company_name %></small>
+              </h4>
+            </div>
+            <div class="panel-footer">
+              <% job.tech_names.each do |name| %>
+                <span class="label label-primary"><%= name.titleize %></span>
+              <% end %>
+              <span class="pull-right"><%= job.decorated_date %></span>
+              <span class="clearfix"></span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="text-center">
+      <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
 </div>
+

@@ -6,6 +6,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
     it "is successful" do
       get :index, format: :json
+
       expect(:success)
     end
 
@@ -17,7 +18,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     it 'returns jobs with correct attributes' do
-      1.times { create(:job) }
+      create(:job)
       get :index, format: :json
 
       response_body['jobs'].each do |job|
@@ -33,15 +34,18 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     it 'returns the id and name of the company the job belongs to' do
-      1.times { create(:job) }
+      create(:job)
       get :index, format: :json
       company = response_body['jobs'].first['company']
-      expect(company['id'])
+
+      expect(company['id']).to be_instance_of(Fixnum)
+      expect(company['name']).to be_instance_of(String)
     end
 
     it 'includes remaining jobs on next page of pagination' do
       30.times { create(:job) }
       get :index, page: 2
+
       expect(response_body['jobs'].count).to eq(5)
     end
   end

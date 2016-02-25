@@ -11,8 +11,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'feedjira'
 gem 'responders'
 gem 'active_model_serializers'
-gem 'will_paginate'
 gem 'api-pagination'
+gem 'bootstrap-sass'
+gem 'puma'
+gem 'newrelic_rpm'
+gem 'figaro'
+gem 'will_paginate-bootstrap'
+gem 'draper'
 
 group :development, :test do
   gem 'rspec-rails'
