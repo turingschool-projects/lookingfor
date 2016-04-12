@@ -3,16 +3,16 @@
 # .NET, PHP, Python and Node applications with deep visibility and low
 # overhead.  For more information, visit www.newrelic.com.
 #
-# Generated February 22, 2016
+# Generated April 12, 2016
 #
-# This configuration file is custom generated for 1510 Blake St. Denver, CO
+# This configuration file is custom generated for LookingForMe
 #
 # For full documentation of agent configuration options, please refer to
 # https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: <%= ENV["new_relic_license_key"] %>
+  license_key: a32870009fa3d1d3c496b6361fdfd833a463c435
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
