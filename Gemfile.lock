@@ -242,6 +242,7 @@ DEPENDENCIES
   draper
   factory_girl_rails
   faker
+  faraday
   feedjira
   figaro
   jbuilder (~> 2.0)
@@ -264,4 +265,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

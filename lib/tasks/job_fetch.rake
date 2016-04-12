@@ -12,4 +12,12 @@ namespace :job_fetch do
   task weworkremotely: :environment do
     WeWorkRemotely.scrape
   end
+
+  desc "Run the authentic jobs fetcher"
+
+  task authenticjobs: :environment do
+    Technology.find_each do |t|
+      AuthenticJobsService.scrape(t.name)
+    end
+  end
 end

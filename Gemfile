@@ -17,6 +17,7 @@ gem 'newrelic_rpm'
 gem 'figaro'
 gem 'will_paginate-bootstrap'
 gem 'draper'
+gem 'faraday'
 
 group :development, :test do
   gem 'rspec-rails'
