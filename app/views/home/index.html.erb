@@ -23,6 +23,7 @@
             <div class="panel-body">
               <h4><%= job.decorated_title %>
                 <small> @ <%= job.company_name %></small>
+                <%= link_to "View Listing", job_path(job), class: "button" %>
               </h4>
             </div>
             <div class="panel-footer">
@@ -42,4 +43,3 @@
     </div>
   </div>
 </div>
-

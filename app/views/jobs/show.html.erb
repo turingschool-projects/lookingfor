@@ -1,0 +1,13 @@
+<h1><%= @job.title %></h1>
+<h3>Company: </h3>
+
+<ul>
+  <li><%= link_to @job.url, @job.url %></li>
+  <li><%= @job.description %></li>
+  <li><%= @job.posted_date %></li>
+  <li><%= @job.location %></li>
+  <li><%= @job.remote %></li>
+  <% if @job.raw_technologies != [] %>
+    <li><%= @job.raw_technologies %></li>
+  <% end %>
+</ul>
