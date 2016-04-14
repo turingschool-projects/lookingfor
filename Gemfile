@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
+
 gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
@@ -17,6 +19,7 @@ gem 'newrelic_rpm'
 gem 'figaro'
 gem 'will_paginate-bootstrap'
 gem 'draper'
+gem 'coveralls', require: false
 
 group :development, :test do
   gem 'rspec-rails'
