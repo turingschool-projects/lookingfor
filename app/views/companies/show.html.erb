@@ -7,17 +7,7 @@
     </h1>
   </div>
 
-  <div class="col-md-3">
-    <ul class="list-group">
-      <% @company.jobs.each do |job| %>
-        <% job.raw_technologies.each do |tech| %>
-          <li class="list-group-item"><%= tech.capitalize %></li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="col-md-9">
+  <div class="col-md-12">
     <ul class="job-list">
       <% @jobs.each do |job| %>
         <li class="no-dots">
@@ -40,5 +30,14 @@
     <div class="text-center">
       <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
     </div>
+
+    <div>
+      <h4>Tech stack</h4>
+      <% @company.jobs.each do |job| %>
+        <% job.raw_technologies.each do |tech| %>
+          <%= tech.capitalize + ", " %>
+        <% end %>
+      <% end %>
+    </div><br><br>
   </div>
 </div>
