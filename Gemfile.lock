@@ -50,7 +50,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
     builder (3.2.2)
-    byebug (8.2.2)
+    byebug (8.2.4)
     capybara (2.6.2)
       addressable
       mime-types (>= 1.16)
@@ -264,4 +264,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
