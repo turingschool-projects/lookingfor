@@ -1,8 +1,8 @@
 <div class="container">
   <div class="page-header">
-    <h1><%= @company.name %>
+    <h1><%= link_to "Lookingfor", root_path %>
       <small>
-        <%= @company.jobs.count %> current openings
+        <%= @company.jobs.count %> Jobs from <%= @company.name %>
       </small>
     </h1>
   </div>
@@ -11,7 +11,7 @@
     <ul class="list-group">
       <% @company.jobs.each do |job| %>
         <% job.raw_technologies.each do |tech| %>
-          <li class="list-group-item"><%= tech %></li>
+          <li class="list-group-item"><%= tech.capitalize %></li>
         <% end %>
       <% end %>
     </ul>
