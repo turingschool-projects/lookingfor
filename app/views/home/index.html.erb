@@ -5,6 +5,9 @@
         <%= @jobs.total_entries %> Jobs from <%= @company_count %> Companies
       </small>
     </h1>
+    <small>
+      Jobs from <a href="https://authenticjobs.com/">Authentic Jobs</a>, <a href="http://stackoverflow.com/jobs">Stack Overflow</a>, and <a href="https://weworkremotely.com">We Work Remotely</a>
+    </small>
   </div>
 
   <div class="col-md-3">
@@ -22,7 +25,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h4><%= job.decorated_title %>
-                <small> @ <%= job.company_name %></small>
+                <small> @ <%= link_to "#{job.company_name}", company_path(job.company.id) %></small>
               </h4>
             </div>
             <div class="panel-footer">
@@ -42,4 +45,3 @@
     </div>
   </div>
 </div>
-
