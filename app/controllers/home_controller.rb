@@ -5,3 +5,4 @@ class HomeController < ApplicationController
     @tech_names = Technology.pluck(:name)
   end
 end
+  
