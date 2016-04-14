@@ -258,6 +258,7 @@ DEPENDENCIES
   draper
   factory_girl_rails
   faker
+  faraday
   feedjira
   figaro
   jbuilder (~> 2.0)

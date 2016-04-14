@@ -19,6 +19,7 @@ gem 'newrelic_rpm'
 gem 'figaro'
 gem 'will_paginate-bootstrap'
 gem 'draper'
+gem 'faraday'
 gem 'coveralls', require: false
 
 group :development, :test do

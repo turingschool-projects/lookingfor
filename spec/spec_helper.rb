@@ -19,4 +19,7 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:any, /stackoverflow/).to_rack(FakeStackOverflow)
   end
+  config.before(:each) do
+    stub_request(:any, /authenticjobs.com/).to_rack(FakeAuthenticJobs)
+  end
 end
