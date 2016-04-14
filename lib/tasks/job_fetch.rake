@@ -1,5 +1,11 @@
 namespace :job_fetch do
-  desc "Run the stack overflow fetcher"
+  desc "Run all job fetchers"
+
+  task all_jobs: :environment do
+    ["stackoverflow", "weworkremotely", "authenticjobs"].each { |t| build t }
+  end
+
+  desc "Run stack overflow job fetcher"
 
   task stackoverflow: :environment do
     Technology.find_each do |t|
@@ -20,4 +26,11 @@ namespace :job_fetch do
       AuthenticJobsService.scrape(t.name)
     end
   end
+
+  desc "the build task calls each rake task individually"
+
+  def build(type)
+    Rake::Task["job_fetch:#{type}"].invoke
+  end
+
 end
