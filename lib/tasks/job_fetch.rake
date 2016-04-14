@@ -13,7 +13,7 @@ namespace :job_fetch do
     end
   end
 
-  desc "we work remotely job fetcher"
+  desc "Run the we work remotely fetcher"
 
   task weworkremotely: :environment do
     WeWorkRemotely.scrape
@@ -24,4 +24,5 @@ namespace :job_fetch do
   def build(type)
     Rake::Task["job_fetch:#{type}"].invoke
   end
+
 end
