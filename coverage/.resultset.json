@@ -1,11 +1,11 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/helpers/application_helper.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/controllers/api/v1/jobs_controller.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/controllers/api/v1/jobs_controller.rb": [
         1,
         null,
         1,
@@ -13,14 +13,14 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/controllers/application_controller.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/controllers/application_controller.rb": [
         1,
         null,
         null,
         1,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/controllers/home_controller.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/controllers/home_controller.rb": [
         1,
         1,
         8,
@@ -29,7 +29,7 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/decorators/job_decorator.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/decorators/job_decorator.rb": [
         1,
         1,
         1,
@@ -51,14 +51,14 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/decorators/application_decorator.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/decorators/application_decorator.rb": [
         1,
         1,
         8,
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/models/job.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/models/job.rb": [
         1,
         1,
         284,
@@ -77,20 +77,20 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/models/company.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/models/company.rb": [
         1,
         1,
         1,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/models/technology.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/models/technology.rb": [
         1,
         1,
         1,
         14,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/services/authentic_jobs_service.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/services/authentic_jobs_service.rb": [
         1,
         1,
         2,
@@ -175,7 +175,7 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/services/job_fetcher.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/services/job_fetcher.rb": [
         1,
         1,
         139,
@@ -202,7 +202,7 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/services/stack_overflow.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/services/stack_overflow.rb": [
         1,
         1,
         null,
@@ -268,7 +268,7 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/services/we_work_remotely.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/services/we_work_remotely.rb": [
         1,
         1,
         null,
@@ -348,23 +348,23 @@
         null,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/serializers/job_serializer.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/serializers/job_serializer.rb": [
         1,
         1,
         1,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/serializers/company_serializer.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/serializers/company_serializer.rb": [
         1,
         1,
         null
       ],
-      "/Users/elizabethsecor/Documents/Turing/4module/projects/lookingforme/app/decorators/paginating_decorator.rb": [
+      "/Users/Penney/Documents/Turing/4-module/projects/lookingfor/app/decorators/paginating_decorator.rb": [
         1,
         1,
         null
       ]
     },
-    "timestamp": 1460656323
+    "timestamp": 1460658141
   }
 }
