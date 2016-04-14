@@ -8,7 +8,13 @@
   </div>
 
   <div class="col-md-3">
-
+    <ul class="list-group">
+      <% @company.jobs.each do |job| %>
+        <% job.raw_technologies.each do |tech| %>
+          <li class="list-group-item"><%= tech %></li>
+        <% end %>
+      <% end %>
+    </ul>
   </div>
 
   <div class="col-md-9">
