@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/PenneyGadget/lookingfor.svg?branch=master)](https://travis-ci.org/PenneyGadget/lookingfor)
+[![Build Status](https://travis-ci.org/LookingForMe/lookingfor.svg?branch=master)](https://travis-ci.org/LookingForMe/lookingfor)
+[![Coverage Status](https://coveralls.io/repos/github/LookingForMe/lookingfor/badge.svg?branch=master)](https://coveralls.io/github/LookingForMe/lookingfor?branch=master)
 
 # LookingFor
 
