@@ -33,11 +33,11 @@
 
     <div>
       <h4>Tech stack</h4>
-      <% @company.jobs.each do |job| %>
+      <% @jobs.each do |job| %>
         <% job.raw_technologies.each do |tech| %>
           <%= tech.capitalize + ", " %>
         <% end %>
       <% end %>
-    </div><br><br>
+    </div>
   </div>
 </div>
