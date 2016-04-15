@@ -1,13 +1,39 @@
-<h1><%= @job.title %></h1>
-<h3>Company: </h3>
+<div class="container">
+  <div class="page-header">
+    <h1>Lookingfor</h1>
+  </div>
 
-<ul>
-  <li><%= link_to @job.url, @job.url %></li>
-  <li><%= @job.description %></li>
-  <li><%= @job.posted_date %></li>
-  <li><%= @job.location %></li>
-  <li><%= @job.remote %></li>
-  <% if @job.raw_technologies != [] %>
-    <li><%= @job.raw_technologies %></li>
-  <% end %>
-</ul>
+  <div class="col-md-1">
+  </div>
+
+  <div class="col-md-9">
+    <ul class="job-list">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3><%= @job.title %></h3>
+        </div>
+        <div class="panel-footer">
+          <p class="section-header"><strong>Posted on:</strong></p>
+          <li class="no-dots"><%= @job.posted_date %></li>
+          <p class="section-header"><strong>More info at:</strong></p>
+          <li class="no-dots"><%= link_to @job.url, @job.url %></li>
+          <p class="section-header"><strong>Job Description:</strong></p>
+          <li class="no-dots"><%= sanitize @job.description %></li>
+          <p class="section-header"><strong>Location:</strong></p>
+          <li class="no-dots"><%= @job.location %></li>
+          <p class="section-header"><strong>Remote:</strong></p>
+          <li class="no-dots"><%= @job.remote %></li>
+          <% if @job.raw_technologies != [] %>
+            <p class="section-header"><strong>Technolpgies:</strong></p>
+            <ul>
+              <% @job.raw_technologies.each do |technology| %>
+                <li><%= technology %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+    </ul>
+  </div>
+  </div>
+
+</div>
