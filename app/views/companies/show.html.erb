@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="page-header">
+    <h1><%= link_to "Lookingfor", root_path %>
+      <small>
+        <%= @company.jobs.count %> Jobs from <%= @company.name %>
+      </small>
+    </h1>
+  </div>
+
+  <div class="col-md-12">
+    <ul class="job-list">
+      <% @jobs.each do |job| %>
+        <li class="no-dots">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4><%= job.title %>
+              </h4>
+            </div>
+            <div class="panel-footer">
+              <% job.raw_technologies.each do |name| %>
+                <span class="label label-primary"><%= name.titleize %></span>
+              <% end %>
+              <span class="pull-right"><%= job.posted_date %></span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="text-center">
+      <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+    </div>
+
+    <div>
+      <h4>Tech stack</h4>
+      <% @jobs.each do |job| %>
+        <% job.raw_technologies.each do |tech| %>
+          <%= tech.capitalize + ", " %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
