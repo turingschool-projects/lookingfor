@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.org/LookingForMe/lookingfor.svg?branch=master)](https://travis-ci.org/LookingForMe/lookingfor)
+[![Coverage Status](https://coveralls.io/repos/github/LookingForMe/lookingfor/badge.svg?branch=master)](https://coveralls.io/github/LookingForMe/lookingfor?branch=master)
+
+# LookingFor
+
 ## Description
-LookingFor is a rails application that pull developer job postings from the internet and uses them to answer the question 'Hello, is it me you're looking for?'
+LookingFor is a rails application that pulls developer job postings from the internet and uses them to answer the question "Hello, is it me you're looking for?"
 
 [Visit the App in Production](https://lookingforme.herokuapp.com/)
 
@@ -34,8 +39,27 @@ If you're on a Linux system with apt-get then run: `apt-get install postgresql p
 
 ### Run The Application
 
+* Make sure you have bundled with: `bundle install`
 * Start the server with: `bundle exec rails s`
 * Then you can access the local server at [localhost:3000](http://localhost:3000)
+
+** Note: You must be able to run ruby 2.3.0 in order to view the app locally, as that is what the Gemfile currently specifies.
+
+### Travis CI
+
+LookingFor has continuous integration enabled with the Travis CI gem. To get it running and use the command line client, run:
+
+* `gem install travis -v 1.8.2 --no-rdoc --no-ri`
+
+Make sure everything works by running:
+
+* `travis version`
+
+You can run `travis help` to see a list of all available query commands. Run `travis help <query command>` to get detailed information about a particular command.
+
+More information can be found [here](https://github.com/travis-ci/travis.rb#command-line-client) or in the [docs](https://docs.travis-ci.com/).
+
+If you have issues running tests locally after setting up Travis CI, run the command `rake db:test:prepare` and that should solve the issue.
 
 ### Testing
 1. Run the test suite: `bundle exec rspec`

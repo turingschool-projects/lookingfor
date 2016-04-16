@@ -16,3 +16,6 @@
 # Ignore application configuration
 /config/application.yml
 .idea
+
+# Ignore coverage folder
+/coverage
