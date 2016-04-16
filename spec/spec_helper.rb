@@ -1,4 +1,12 @@
 require 'factory_girl_rails'
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+
+SimpleCov.start('rails') do
+  add_filter 'app/secrets'
+end
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
@@ -10,5 +18,8 @@ RSpec.configure do |config|
   end
   config.before(:each) do
     stub_request(:any, /stackoverflow/).to_rack(FakeStackOverflow)
+  end
+  config.before(:each) do
+    stub_request(:any, /authenticjobs.com/).to_rack(FakeAuthenticJobs)
   end
 end
