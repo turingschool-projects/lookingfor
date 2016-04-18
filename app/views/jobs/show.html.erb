@@ -23,8 +23,8 @@
           <li class="no-dots"><%= @job.location %></li>
           <p class="section-header"><strong>Remote:</strong></p>
           <li class="no-dots"><%= @job.remote %></li>
-          <% if @job.raw_technologies != [] %>
-            <p class="section-header"><strong>Technolpgies:</strong></p>
+          <% if @job.raw_technologies.empty? %>
+            <p class="section-header"><strong>Technologies:</strong></p>
             <ul>
               <% @job.raw_technologies.each do |technology| %>
                 <li><%= technology %></li>
