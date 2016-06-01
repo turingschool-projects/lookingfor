@@ -15,6 +15,7 @@ describe Job do
 
   describe "Associations" do
     it { expect(instance).to belong_to(:company) }
+    it { expect(instance).to belong_to(:location) }
     it { expect(instance).to have_and_belong_to_many(:technologies) }
   end
 

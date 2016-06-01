@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   scope :by_date, -> { order(posted_date: :desc) }
   belongs_to :company
   has_and_belongs_to_many :technologies
+  belongs_to :location
 
   def downcase_tech
     self.raw_technologies = self.raw_technologies.compact.map(&:downcase)
