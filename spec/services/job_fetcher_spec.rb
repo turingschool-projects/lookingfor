@@ -5,14 +5,17 @@ describe JobFetcher do
     job: {
       title: "Node Instrumentation Engineer at New Relic (Portland, OR)",
       url: "http://stackoverflow.com/jobs/109010/node-instrumentation-engineer-new-relic",
-      location: "Portland Oregon",
+
       raw_technologies: ["c++", "python", "java", "php", "ruby"],
       description: "<p><strong>New Relic<br></strong><strong>",
       remote: false,
       posted_date: "2016-02-15 16:52:38 UTC" },
     company: {
       name: "New Relic"
-    }
+    },
+    location: {
+      name: "Portland Oregon"
+    },
   }}
 
   let(:subject){ JobFetcher }
@@ -65,7 +68,6 @@ describe JobFetcher do
         expect(job.title).to eq(job_entry[:title])
         expect(job.description).to eq(job_entry[:description])
         expect(job.url).to eq(job_entry[:url])
-        expect(job.location).to eq(job_entry[:location])
         expect(job.raw_technologies).to eq(job_entry[:raw_technologies])
         expect(job.remote).to eq(job_entry[:remote])
         expect(job.posted_date).to eq(job_entry[:posted_date].to_date)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
   describe "GET #index" do
-    let(:response_body) { json_respone = JSON.parse(response.body) }
+    let(:response_body) { JSON.parse(response.body) }
 
     it "is successful" do
       get :index, format: :json

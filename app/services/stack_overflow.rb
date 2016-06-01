@@ -25,7 +25,6 @@ class StackOverflow < JobFetcher
     { job: {
         title: entry.title,
         url: entry.url,
-        location: self.pull_location(entry.title),
         raw_technologies: generate_raw_technologies(entry), #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
         description: entry.summary,
         remote: self.is_remote?(entry.title),
@@ -33,7 +32,10 @@ class StackOverflow < JobFetcher
       },
       company: {
         name: self.pull_company_name(entry.title)
-      }
+      },
+      location: {
+        name: self.pull_location(entry.title),
+      },
     }
   end
 
