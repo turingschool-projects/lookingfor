@@ -1,6 +1,6 @@
 namespace :job_fetch do
   desc "Run all job fetchers"
-
+ 
   task all_jobs: :environment do
     ["stackoverflow", "weworkremotely", "authenticjobs"].each { |t| build t }
   end

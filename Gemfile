@@ -21,6 +21,7 @@ gem 'will_paginate-bootstrap'
 gem 'draper'
 gem 'faraday'
 gem 'coveralls', require: false
+gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails'
