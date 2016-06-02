@@ -10,13 +10,13 @@ class StackOverflow < JobFetcher
   def scrape
     feed = pull_feed
     if feed.present?
-      format_feed(feed)
+      format_entries(feed)
     end
   end
 
-  def format_feed(feed)
-    feed.css('item').map do |item|
-      formatted_entry = self.format_entry(item)
+  def format_entries(entries)
+    entries.css('item').map do |entry|
+      formatted_entry = self.format_entry(entry)
       create_records(formatted_entry)
     end
   end
@@ -68,6 +68,6 @@ class StackOverflow < JobFetcher
 
   def pull_feed
     url = BASE_URI + term
-    @rss_feed ||= Nokogiri::HTML(open(url))
+    Nokogiri::HTML(open(url))
   end
 end
