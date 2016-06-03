@@ -137,6 +137,7 @@ GEM
       slop (~> 3.4)
     puma (2.16.0)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -269,6 +270,7 @@ DEPENDENCIES
   pg (~> 0.15)
   pry
   puma
+  rack-cors
   rails (= 4.2.5)
   rspec-rails
   sass-rails (~> 5.0)
