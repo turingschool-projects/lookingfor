@@ -18,19 +18,18 @@ if Rails.env.development?
   Technology.import(array)
 
   array = []
+  company_number = 12000
   puts "Starting Companies"
-  200000.times do |i|
+  company_number.times do |i|
     array << Company.new(name: Faker::Company.name + i.to_s)
-    puts "Added Company  ##{i} to the array" if i % 10000 == 0
+    puts "Added Company  ##{i} to the import array" if i % 1000 == 0
   end
-  puts "Starting import..."
+  puts "Starting import...this will take a long time"
   Company.import(array)
-  first = Company.first.id
 
   array =[]
   puts "Starting Jobs"
-  100.times do |i|
-    begin
+  30000.times do |i|
     job_attrs = {
       title: Faker::Company.profession + i.to_s,
       description: Faker::Lorem.paragraph(3),
@@ -40,21 +39,16 @@ if Rails.env.development?
       remote: i % 2 == 0,
       raw_technologies: Technology.pluck(:name).take(3)
     }
-    rescue
-      puts i
-      next
-    end
     array << Job.new(job_attrs)
-    puts "Added Job  ##{i} to the array" if i % 10000 == 0
+    puts "Added Job  ##{i} to the import array" if i % 1000 == 0
   end
-  puts "Starting import..."
+  puts "Starting import...this will take a long time"
   Job.import(array)
-  i = 0
+
   Job.find_each do | job |
+    id = Random.rand(1..company_number)
     job.assign_tech
-    job.company = Company.find(((first + i) % first) + first)
+    job.company = Company.find(id)
     job.save
-    i += 1
-    binding.pry
   end
 end
