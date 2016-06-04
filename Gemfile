@@ -32,6 +32,7 @@ group :development, :test do
   gem 'faker'
   gem 'rails-perftest'
   gem 'ruby-prof'
+  gem 'poltergeist'
 end
 
 group :test do
