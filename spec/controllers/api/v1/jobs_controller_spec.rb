@@ -28,7 +28,6 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         expect(job['location']).to be_instance_of(String)
         expect(job['posted_date']).to be_instance_of(String)
         expect(job['remote']).to be false
-        expect(job['raw_technologies']).to be_instance_of(Array)
         expect(job['company']).to be_instance_of(Hash)
       end
     end

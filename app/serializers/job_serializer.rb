@@ -1,4 +1,5 @@
 class JobSerializer < ActiveModel::Serializer
-  attributes :title, :description, :url, :location, :posted_date, :remote, :raw_technologies
+  attributes :id, :title, :description, :url, :location, :posted_date, :remote
   has_one :company
+  has_many :technologies
 end
