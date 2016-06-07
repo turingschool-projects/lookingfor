@@ -6,8 +6,21 @@ namespace :fix_location do
   end
 
   def jobs_with_locations
+    stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%').all
+    stackoverflow_jobs.each do |job|
+      if job.location =~ /(\w*, \w*)/
+        p "location is good"
+      else
+        p "location is not good"
+        normalize_location(job)
+      end
+    end
     # only target stackoverflow jobs
-    # create a rake 
+    # create a rake
     # Job.where
+  end
+
+  def normalize_location(job)
+    
   end
 end
