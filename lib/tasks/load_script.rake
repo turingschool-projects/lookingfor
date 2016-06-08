@@ -1,4 +1,4 @@
-require 'load_script/session'
+require 'load_script/job_endpoints'
 
 namespace :load_script do
   desc "Run a load testing script against app. Accepts 'HOST' as an argument. Defaults to 'localhost:3000'."
