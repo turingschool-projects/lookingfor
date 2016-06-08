@@ -21,6 +21,8 @@ gem 'will_paginate-bootstrap'
 gem 'draper'
 gem 'faraday'
 gem 'coveralls', require: false
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
 
 group :development, :test do
   gem 'rspec-rails'
