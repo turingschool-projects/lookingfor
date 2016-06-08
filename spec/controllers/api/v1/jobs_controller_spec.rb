@@ -47,5 +47,17 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
       expect(response_body['jobs'].count).to eq(5)
     end
+
+    it 'capitalizes technologies appropriately' do
+      job = create(:job)
+      downcased_technologies = ["javascript", "clojure", "ruby"]
+      downcased_technologies.map {|t| job.technologies << create(:technology, name: t)}
+
+      get :index
+
+      response_body["jobs"].first["technologies"].each_with_index do | tech, i |
+        expect(["JavaScript", "Clojure", "Ruby"]).to include(tech["name"])
+      end
+    end
   end
 end
