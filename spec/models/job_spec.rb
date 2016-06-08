@@ -5,6 +5,37 @@ describe Job do
     expect(build(:job)).to be_valid
   end
 
+  before(:all) do
+  Geocoder.configure(:lookup => :test)
+
+  Geocoder::Lookup::Test.add_stub(
+  "1510 Blake Street Denver CO", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  Geocoder::Lookup::Test.add_stub(
+  "New York, NY", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  end
+
   let(:instance) { build(:job) }
 
   describe "Validations" do
@@ -41,6 +72,15 @@ describe Job do
         object.assign_tech
         expect(object.technologies.count).to eq(0)
       end
+    end
+  end
+
+  describe 'geocodes' do
+    it 'assigns latitude and longtiude to valid location' do
+      job = Job.create(location: "1510 Blake Street Denver CO")
+
+      expect(job.latitude).to eq(40.7143528)
+      expect(job.longitude).to eq(-74.0059731)
     end
   end
 end

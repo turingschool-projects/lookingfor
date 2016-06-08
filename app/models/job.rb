@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   before_save { |tech| tech.downcase_tech }
+  geocoded_by :location
+  after_validation :geocode
 
   scope :by_date, -> { order(posted_date: :desc) }
   belongs_to :company

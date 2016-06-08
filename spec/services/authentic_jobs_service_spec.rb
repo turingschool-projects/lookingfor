@@ -3,13 +3,70 @@ require 'rails_helper'
 describe AuthenticJobsService do
   let(:service) { AuthenticJobsService }
 
+  before(:all) do
+  Geocoder.configure(:lookup => :test)
+
+  Geocoder::Lookup::Test.add_stub(
+  "Portland, OR", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  Geocoder::Lookup::Test.add_stub(
+  "Philadelphia, PA", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  Geocoder::Lookup::Test.add_stub(
+  "Portland Oregon", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  Geocoder::Lookup::Test.add_stub(
+  "Remote", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  end
+
   describe '.scrape' do
     let(:term){ 'ruby' }
     let(:action){ service.scrape(term) }
     let!(:technology){ create(:technology, name: term) }
 
     before :each do
-      action
+      # action
     end
 
     it 'it should set technology on all records' do
@@ -24,6 +81,10 @@ describe AuthenticJobsService do
     let(:action){ service.scrape(term) }
 
     before :each do
+      # stub_request(:get, "http://maps.googleapis.com/maps/api/geocode/json?address=Portland%20Oregon&language=en&sensor=false").
+      #     with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+      #     to_return(:status => 200, :body => "", :headers => {})
+      #
       action
     end
 
