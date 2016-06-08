@@ -4,8 +4,11 @@ class Job < ActiveRecord::Base
   after_save :job_to_elasticsearch
 
   scope :by_date, -> { order(posted_date: :desc) }
+  scope :last_two_months, -> { where("posted_date >= ?", 2.months.ago)}
+
   belongs_to :company
   has_and_belongs_to_many :technologies
+
 
   def downcase_tech
     self.raw_technologies = self.raw_technologies.compact.map(&:downcase)
