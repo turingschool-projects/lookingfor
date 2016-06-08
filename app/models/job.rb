@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   before_save { |tech| tech.downcase_tech }
+  after_save :job_to_elasticsearch
 
   scope :by_date, -> { order(posted_date: :desc) }
   belongs_to :company
@@ -13,5 +14,21 @@ class Job < ActiveRecord::Base
   def assign_tech
     tech_matches = Technology.where(name: raw_technologies)
     self.technologies = tech_matches
+  end
+
+protected
+  def job_to_elasticsearch
+    client = Elasticsearch::Client.new log: true
+    client.index(index: "looking-for",
+                 type: "job",
+                 id: self.id,
+                 body: {title: self.title,
+                       description: self.description,
+                       url: self.url,
+                       location: self.location,
+                       posted_date: self.posted_date,
+                       remote: self.remote,
+                       technologies: self.raw_technologies,
+                       company: Company.find(self.company_id).name})
   end
 end

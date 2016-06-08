@@ -11,16 +11,19 @@ client = Elasticsearch::Client.new log: true
 jobs = Job.all
 # jobs = Job.first(10)
 
-###### jobs.each do |job|
-######   client.index(index: "looking-for", type: "job", id: job.id, body: {title: job.title,
-######                                                                      description: job.description,
-######                                                                      url: job.url,
-######                                                                      location: job.location,
-######                                                                      posted_date: job.posted_date,
-######                                                                      remote: job.remote,
-######                                                                      technologies: job.raw_technologies,
-######                                                                      company: Company.find(job.company_id).name})
-###### end
+jobs.each do |job|
+  client.index(index: "looking-for",
+               type: "job",
+               id: job.id, 
+               body: {title: job.title,
+                     description: job.description,
+                     url: job.url,
+                     location: job.location,
+                     posted_date: job.posted_date,
+                     remote: job.remote,
+                     technologies: job.raw_technologies,
+                     company: Company.find(job.company_id).name})
+end
 
 
 
@@ -35,8 +38,8 @@ jobs = Job.all
 # job = jobs.first
 
 # client.search(index: "looking-for", body: { query: { match: {title: "New Relic"}}})
-client.search(index: "looking-for",
-              body: {
-              query: {
-              match: {
-              title: "infrastructure"}}})
+# client.search(index: "looking-for",
+#               body: {
+#               query: {
+#               match: {
+#               title: "infrastructure"}}})
