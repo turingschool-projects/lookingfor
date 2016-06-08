@@ -9,14 +9,13 @@ if Rails.env.production?
 end
 
 if Rails.env.development?
-
   company_number = 12000
   job_number = 30000
-
 
   puts "Loading Technology"
   array = []
 
+  #load technologies
   t_names = ["ruby", "javascript", "go", "react", "ember", "clojure", "angular", "rails", "python"]
   t_names.each do |name|
     array << Technology.new(name: name)
@@ -59,8 +58,6 @@ if Rails.env.development?
 
   Job.find_each do | job |
     job.assign_tech
-    # id = Random.rand(1..company_number)
-    # job.company = Company.find(id)
     job.save
   end
 end
