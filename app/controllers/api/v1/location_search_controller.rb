@@ -1,8 +1,9 @@
 class Api::V1::LocationSearchController < ApplicationController
 
   def index
-    location = params[:location]
-    render json: Job.where("lower(location) LIKE ?", "%#{location.downcase}%").count
+    search_location = params[:location]
+    jobs_by_location = Job.last_month.by_location(search_location)
+    render json: jobs_by_location
   end
 
 end
