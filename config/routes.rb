@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, only: [:index, :show]
       get '/recent_jobs', to: "recent_jobs#index"
+      get '/location', to: "location_search#index"
     end
   end
 end
