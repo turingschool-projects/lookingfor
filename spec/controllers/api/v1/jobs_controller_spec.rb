@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
   describe "GET #index" do
-    let(:response_body) { json_respone = JSON.parse(response.body) }
+    let(:response_body) { json_response = JSON.parse(response.body) }
 
     it "is successful" do
       get :index, format: :json
@@ -46,6 +46,18 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       get :index, page: 2
 
       expect(response_body['jobs'].count).to eq(5)
+    end
+
+    it 'capitalizes technologies appropriately' do
+      job = create(:job)
+      downcased_technologies = ["javascript", "clojure", "new relic"]
+      downcased_technologies.map {|t| job.technologies << create(:technology, name: t)}
+
+      get :index
+
+      response_body["jobs"].first["technologies"].each_with_index do | tech, i |
+        expect(["JavaScript", "Clojure", "New Relic"]).to include(tech["name"])
+      end
     end
   end
 
