@@ -19,7 +19,7 @@ class Job < ActiveRecord::Base
     self.technologies = tech_matches
   end
 
-protected
+private
   def job_to_elasticsearch
     client = Elasticsearch::Client.new log: true
     client.index(index: "looking-for",
