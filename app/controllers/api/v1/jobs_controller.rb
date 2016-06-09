@@ -1,7 +1,6 @@
 class Api::V1::JobsController < ApplicationController
 
   def last_two_months
-    require "pry"; binding.pry
     render json: Job.last_two_months
   end
 
