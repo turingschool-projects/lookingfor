@@ -21,19 +21,6 @@ describe Job do
      }
     ]
    )
-  Geocoder::Lookup::Test.add_stub(
-  "New York, NY", [
-    {
-      'latitude'     => 40.7143528,
-      'longitude'    => -74.0059731,
-      'address'      => 'New York, NY, USA',
-      'state'        => 'New York',
-      'state_code'   => 'NY',
-      'country'      => 'United States',
-      'country_code' => 'US'
-     }
-    ]
-   )
   end
 
   let(:instance) { build(:job) }
@@ -76,11 +63,12 @@ describe Job do
   end
 
   describe 'geocodes' do
-    it 'assigns latitude and longtiude to valid location' do
+    it 'uses geocoder to fetch lat and long coordinates' do
       job = Job.create(location: "1510 Blake Street Denver CO")
+      coords = Geocoder.search(job.location).first.data
 
-      expect(job.latitude).to eq(40.7143528)
-      expect(job.longitude).to eq(-74.0059731)
+      expect(coords['latitude']).to eq(40.7143528)
+      expect(coords['longitude']).to eq(-74.0059731)
     end
   end
 end
