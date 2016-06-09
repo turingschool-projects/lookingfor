@@ -3,7 +3,7 @@ class TechnologySerializer < ActiveModel::Serializer
 
   def name
     tech_capitalizations[object.name] ?
-    tech_capitalizations[object.name] : object.name.capitalize
+    tech_capitalizations[object.name] : object.name.split.map(&:capitalize)*' '
   end
 
   def tech_capitalizations
