@@ -60,4 +60,29 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       end
     end
   end
+
+  describe "GET #show" do
+    let(:response_body) { JSON.parse(response.body) }
+    let(:job) { create(:job) }
+
+    it "is successful" do
+      get :show, id: job.id, format: :json
+
+      expect(:success)
+    end
+
+    it 'returns job with correct attributes' do
+      get :show, id: job.id, format: :json
+      json_job = response_body['job']
+
+      expect(json_job['title']).to be_instance_of(String)
+      expect(json_job['description']).to be_instance_of(String)
+      expect(json_job['url']).to be_instance_of(String)
+      expect(json_job['location']).to be_instance_of(String)
+      expect(json_job['posted_date']).to be_instance_of(String)
+      expect(json_job['remote']).to be false
+      expect(json_job['technologies']).to be_instance_of(Array)
+      expect(json_job['company']).to be_instance_of(Hash)
+    end
+  end
 end
