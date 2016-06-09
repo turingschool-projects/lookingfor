@@ -3,6 +3,7 @@ class Job < ActiveRecord::Base
   before_save { |tech| tech.downcase_tech }
 
   scope :by_date, -> { order(posted_date: :desc) }
+  scope :last_two_months, -> { where("posted_date >= ?", 2.months.ago).order(posted_date: :desc) }
   belongs_to :company
   has_and_belongs_to_many :technologies
 
