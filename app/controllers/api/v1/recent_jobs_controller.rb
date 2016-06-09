@@ -1,7 +1,7 @@
 class Api::V1::RecentJobsController < ApplicationController
 
   def index
-    render json: Job.last_two_months
+    paginate json: Job.last_month, per_page: 25
   end
 
 end
