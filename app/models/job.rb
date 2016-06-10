@@ -7,6 +7,10 @@ class Job < ActiveRecord::Base
   belongs_to :company
   has_and_belongs_to_many :technologies
 
+  def self.by_location(search_location)
+    where("lower(location) LIKE ?", "%#{search_location.downcase}%")
+  end
+
   def downcase_tech
     self.raw_technologies = self.raw_technologies.compact.map(&:downcase)
   end

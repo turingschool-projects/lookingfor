@@ -13,6 +13,28 @@ describe Job do
     it { expect(instance).to allow_value(['ruby', 'go']).for(:raw_technologies) }
   end
 
+  it "can search by location case insensitive" do
+    two_month_job = create(:job)
+    two_month_job.update(location: "DENVER")
+    one_month_job = create(:job)
+    one_month_job.update(location: "DENVER")
+    current_job = create(:job)
+    current_job.update(location: "Florida")
+    results = Job.by_location("Denver")
+    expect(results.count).to eq(2)
+  end
+
+  it "can search by location case partial match" do
+    two_month_job = create(:job)
+    two_month_job.update(location: "DENVER, CO")
+    one_month_job = create(:job)
+    one_month_job.update(location: "DENVER, COLORADO")
+    current_job = create(:job)
+    current_job.update(location: "Denver is the coolest place ever")
+    results = Job.by_location("Denver")
+    expect(results.count).to eq(3)
+  end
+
   describe "Associations" do
     it { expect(instance).to belong_to(:company) }
     it { expect(instance).to have_and_belong_to_many(:technologies) }
