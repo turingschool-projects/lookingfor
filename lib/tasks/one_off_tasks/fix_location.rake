@@ -6,7 +6,7 @@ namespace :fix_location do
   end
 
   def jobs_with_locations
-    stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%').limit(200)
+    stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%')
     stackoverflow_jobs.each do |job|
       if job.location.nil?
         check_for_location(job)
