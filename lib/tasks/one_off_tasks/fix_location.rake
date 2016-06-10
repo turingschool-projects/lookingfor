@@ -6,34 +6,28 @@ namespace :fix_location do
   end
 
   def jobs_with_locations
-    stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%')
+    stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%').limit(200)
     stackoverflow_jobs.each do |job|
-      location = Geocoder.search(job.location)
-      normalize_location(job) if location.empty?
-    end
-  end
-
-  def normalize_location(job)
-    if job.title =~ /(\w*, \w*)/
-      location = job.title[/\(([^\)]+)\)/]
-      response = Geocoder.search(location)
-      if !response.empty?
-        job.update_attributes(location: location)
-      else
+      if job.location.nil?
         check_for_location(job)
+      else
+        response = Geocoder.search(job.location)
+        check_for_location(job) if response.empty?
       end
-    elsif job.title.include?('Singapore')
-      job.update_attributes(location: "Singapore")
-    elsif job.title.include?('Hong Kong')
-      job.update_attributes(location: "Hong Kong")
-    elsif job.title.include?('remote')
-      job.update_attribute(remote: true)
-      job.update_attribute(location: "remote")
     end
   end
 
   def check_for_location(job)
-    # search other spots for the location
-    # possibly some more regex?
+    regex = Regexp.new('\(([^\)]+)\)', 'g')
+    potential_locations = job.title.scan(regex)
+    potential_locations.each do |p_loc|
+      response = Geocoder.search(p_loc[0])
+      if !response.empty?
+        puts "updating job with #{p_loc} location"
+        return job.update_attributes(location: p_loc[0])
+      else
+        job.update_attributes(location: nil)
+      end
+    end
   end
 end
