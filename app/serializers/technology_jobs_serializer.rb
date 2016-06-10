@@ -1,4 +1,5 @@
 class TechnologyJobsSerializer < ActiveModel::Serializer
-  attributes :name
+  attributes :id, :name
+
   has_many :jobs
 end
