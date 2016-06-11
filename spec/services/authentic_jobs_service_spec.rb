@@ -24,7 +24,7 @@ describe AuthenticJobsService do
     let(:action){ service.scrape(term) }
 
     before :each do
-      # action
+      action
     end
 
     it 'should not create any jobs from zero results' do
