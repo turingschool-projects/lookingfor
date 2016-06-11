@@ -59,6 +59,34 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         expect(["JavaScript", "Clojure", "New Relic"]).to include(tech["name"])
       end
     end
+
+    it "takes in optional parameters for type of technology" do
+      ruby_job = create(:job)
+      other_job = create(:job)
+      ruby_job.technologies << create(:technology, name: "ruby")
+      other_job.technologies << create(:technology, name: "other")
+
+      get :index, {technology: "ruby"}
+
+      expect(response_body["jobs"].count).to eq(1)
+      response_body["jobs"].each do |job|
+        expect(job["technologies"].first["name"]).to eq("Ruby")
+        expect(job["id"]).to eq(ruby_job.id)
+      end
+    end
+
+    it "returns multiple jobs for technology parameter" do
+      create_list(:job, 4)
+      tech = create(:technology, name: "ruby")
+      Job.find_each {|job| job.technologies << tech}
+
+      get :index, {technology: "ruby"}
+
+      expect(response_body["jobs"].count).to eq(4)
+      response_body["jobs"].each do |job|
+        expect(job["technologies"].first["name"]).to eq("Ruby")
+      end
+    end
   end
 
   describe "GET #show" do

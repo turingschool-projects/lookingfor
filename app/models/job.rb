@@ -4,6 +4,7 @@ class Job < ActiveRecord::Base
 
   scope :by_date, -> { order(posted_date: :desc) }
   scope :last_month, -> { where("posted_date >= ?", 1.month.ago).order(posted_date: :desc) }
+
   belongs_to :company
   has_and_belongs_to_many :technologies
 
@@ -18,5 +19,9 @@ class Job < ActiveRecord::Base
   def assign_tech
     tech_matches = Technology.where(name: raw_technologies)
     self.technologies = tech_matches
+  end
+
+  def self.by_tech(tech_name)
+    joins(:technologies).where(technologies: {name: tech_name})
   end
 end
