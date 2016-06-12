@@ -12,7 +12,7 @@ namespace :fix_location do
         check_for_location(job)
       else
         response = Geocoder.search(job.location)
-        sleep 0.25
+        sleep 2
         if response.empty? || response.count > 1 || check_edge_cases(job.location)
           check_for_location(job)
         end
@@ -25,7 +25,7 @@ namespace :fix_location do
     potential_locations = job.title.scan(regex).flatten
     potential_locations.each do |p_loc|
       response = Geocoder.search(p_loc)
-      sleep 0.25
+      sleep 2
       if !response.empty? && response.count == 1 && !check_edge_cases(p_loc)
         return job.update_attributes(location: p_loc)
       else
