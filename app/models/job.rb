@@ -22,6 +22,6 @@ class Job < ActiveRecord::Base
   end
 
   def self.by_tech(tech_name)
-    joins(:technologies).where(technologies: {name: tech_name})
+    joins(:technologies).where(technologies: {name: tech_name.downcase})
   end
 end
