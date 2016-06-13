@@ -17,6 +17,8 @@ namespace :fix_location do
           check_for_location(job)
         end
       end
+      puts "fixed #{job.title}"
+      puts "with #{job.location} as location"
     end
   end
 
