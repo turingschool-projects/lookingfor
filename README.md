@@ -91,7 +91,7 @@ To run a single test, you can do so by running the its first line:
 
 ### Application Monitoring
 
-LookingFor uses [New Relic](http://newrelic.com/).
+LookingFor uses [New Relic](http://newrelic.com/). New Relic is also accessible in development at the localhost:300/newrelic endpoint.
 
 In order to access the account for LookingFor, you will need to ask one of the maintainers to invite you via e-mail. New Relic is already set up with Heroku, so this is all you need to access the production data.
 
@@ -108,3 +108,5 @@ Once you have the license key and access to the account, you'll need to set up f
  `new_relic_license_key: <key provided>`
 
 3. Restart your server and the data will show up on New Relic within a few minutes.
+
+More performance data can be generated in development, as documented in Basecamp. If you need access to this document, you can contact lookingfor@gmail.com.
