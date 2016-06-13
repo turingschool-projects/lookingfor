@@ -35,18 +35,18 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
       expect(company['name']).to be_instance_of(String)
     end
 
-    it 'only returns jobs posted within the last month' do
+    it 'only returns jobs posted within the last 2 months' do
+      three_month_job = create(:job)
+      three_month_job.update(posted_date: 3.months.ago)
       two_month_job = create(:job)
-      two_month_job.update(posted_date: 2.months.ago)
-      one_month_job = create(:job)
-      one_month_job.update(posted_date: 1.month.ago)
+      two_month_job.update(posted_date: 2.month.ago)
       current_job = create(:job)
 
       get :index, format: :json
 
       expect(response_body['recent_jobs'].count).to eq(2)
       expect(response_body['recent_jobs'].first["title"]).to eq(current_job.title)
-      expect(response_body['recent_jobs'].last["title"]).to eq(one_month_job.title)
+      expect(response_body['recent_jobs'].last["title"]).to eq(two_month_job.title)
     end
   end
 
@@ -82,10 +82,10 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
     end
 
     it 'only returns jobs posted within the last month when searching by location' do
+      three_month_job = create(:job)
+      three_month_job.update(location: "DENVER", posted_date: 3.months.ago)
       two_month_job = create(:job)
-      two_month_job.update(location: "DENVER", posted_date: 2.months.ago)
-      one_month_job = create(:job)
-      one_month_job.update(location: "DENVER", posted_date: 1.month.ago)
+      two_month_job.update(location: "DENVER", posted_date: 2.month.ago)
       current_job = create(:job)
       current_job.update(location: "DENVER")
 
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
 
       expect(response_body['recent_jobs'].count).to eq(2)
       expect(response_body['recent_jobs'].first["title"]).to eq(current_job.title)
-      expect(response_body['recent_jobs'].last["title"]).to eq(one_month_job.title)
+      expect(response_body['recent_jobs'].last["title"]).to eq(two_month_job.title)
     end
 
     it "is successful with technology params" do
