@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:title, 1) { |n| [Faker::Company.profession, n].join }
     description { Faker::Company.bs }
     url { Faker::Internet.url }
-    location { "New York, NY" }
+    location 
     posted_date { Faker::Date.between(2.days.ago, Date.today) }
     raw_technologies { [[Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
                       [Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
@@ -16,7 +16,7 @@ FactoryGirl.define do
     sequence(:title, 1) { |n| [Faker::Company.profession, n].join }
     description { Faker::Company.bs }
     url { "stackoverflow" }
-    location { nil }
+    location
     posted_date { Faker::Date.between(2.days.ago, Date.today) }
     raw_technologies { [[Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),
                       [Faker::Hacker.adjective, Faker::Hacker.noun].join(' '),

@@ -33,22 +33,23 @@ describe Job do
 
   it "can search by location case insensitive" do
     two_month_job = create(:job)
-    two_month_job.update(location: "DENVER")
+    # binding.pry
+    two_month_job.location.name = "DENVER"
     one_month_job = create(:job)
-    one_month_job.update(location: "DENVER")
+    one_month_job.location.name = "DENVER"
     current_job = create(:job)
-    current_job.update(location: "Florida")
+    current_job.location.name = "Florida"
     results = Job.by_location("Denver")
     expect(results.count).to eq(2)
   end
 
   it "can search by location case partial match" do
     two_month_job = create(:job)
-    two_month_job.update(location: "DENVER, CO")
+    two_month_job.location.name = "DENVER, CO"
     one_month_job = create(:job)
-    one_month_job.update(location: "DENVER, COLORADO")
+    one_month_job.location.name = "DENVER, COLORADO"
     current_job = create(:job)
-    current_job.update(location: "Denver is the coolest place ever")
+    current_job.location.name = "Denver is the coolest place ever"
     results = Job.by_location("Denver")
     expect(results.count).to eq(3)
   end
