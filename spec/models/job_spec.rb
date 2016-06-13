@@ -5,12 +5,52 @@ describe Job do
     expect(build(:job)).to be_valid
   end
 
+  before(:all) do
+  Geocoder.configure(:lookup => :test)
+
+  Geocoder::Lookup::Test.add_stub(
+  "1510 Blake Street Denver CO", [
+    {
+      'latitude'     => 40.7143528,
+      'longitude'    => -74.0059731,
+      'address'      => 'New York, NY, USA',
+      'state'        => 'New York',
+      'state_code'   => 'NY',
+      'country'      => 'United States',
+      'country_code' => 'US'
+     }
+    ]
+   )
+  end
+
   let(:instance) { build(:job) }
 
   describe "Validations" do
     it { expect(instance).to validate_presence_of(:title) }
     it { expect(instance).to validate_uniqueness_of(:title) }
     it { expect(instance).to allow_value(['ruby', 'go']).for(:raw_technologies) }
+  end
+
+  it "can search by location case insensitive" do
+    two_month_job = create(:job)
+    two_month_job.update(location: "DENVER")
+    one_month_job = create(:job)
+    one_month_job.update(location: "DENVER")
+    current_job = create(:job)
+    current_job.update(location: "Florida")
+    results = Job.by_location("Denver")
+    expect(results.count).to eq(2)
+  end
+
+  it "can search by location case partial match" do
+    two_month_job = create(:job)
+    two_month_job.update(location: "DENVER, CO")
+    one_month_job = create(:job)
+    one_month_job.update(location: "DENVER, COLORADO")
+    current_job = create(:job)
+    current_job.update(location: "Denver is the coolest place ever")
+    results = Job.by_location("Denver")
+    expect(results.count).to eq(3)
   end
 
   describe "Associations" do
@@ -42,6 +82,16 @@ describe Job do
         object.assign_tech
         expect(object.technologies.count).to eq(0)
       end
+    end
+  end
+
+  describe 'geocodes' do
+    it 'uses geocoder to fetch lat and long coordinates' do
+      job = Job.create(location: "1510 Blake Street Denver CO")
+      coords = Geocoder.search(job.location).first.data
+
+      expect(coords['latitude']).to eq(40.7143528)
+      expect(coords['longitude']).to eq(-74.0059731)
     end
   end
 end
