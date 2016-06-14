@@ -32,24 +32,23 @@ describe Job do
   end
 
   it "can search by location case insensitive" do
-    two_month_job = create(:job)
-    # binding.pry
-    two_month_job.location.name = "DENVER"
-    one_month_job = create(:job)
-    one_month_job.location.name = "DENVER"
-    current_job = create(:job)
-    current_job.location.name = "Florida"
+    jobs = create_list(:job, 3)
+
+    jobs[0].location.update_attributes(name: "DENVER")
+    jobs[1].location.update_attributes(name: "DenveR")
+    jobs[2].location.update_attributes(name: "Florida")
+
     results = Job.by_location("Denver")
     expect(results.count).to eq(2)
   end
 
   it "can search by location case partial match" do
-    two_month_job = create(:job)
-    two_month_job.location.name = "DENVER, CO"
-    one_month_job = create(:job)
-    one_month_job.location.name = "DENVER, COLORADO"
-    current_job = create(:job)
-    current_job.location.name = "Denver is the coolest place ever"
+    jobs = create_list(:job, 3)
+
+    jobs[0].location.update_attributes(name: "DENVER, CO")
+    jobs[1].location.update_attributes(name: "DENVER, COLORADO")
+    jobs[2].location.update_attributes(name: "Denver is the kewlest place ever")
+    
     results = Job.by_location("Denver")
     expect(results.count).to eq(3)
   end
@@ -88,8 +87,8 @@ describe Job do
 
   describe 'geocodes' do
     it 'uses geocoder to fetch lat and long coordinates' do
-      job = Job.create(location: "1510 Blake Street Denver CO")
-      coords = Geocoder.search(job.location).first.data
+      job = Job.create(old_location: "1510 Blake Street Denver CO")
+      coords = Geocoder.search(job.old_location).first.data
 
       expect(coords['latitude']).to eq(40.7143528)
       expect(coords['longitude']).to eq(-74.0059731)

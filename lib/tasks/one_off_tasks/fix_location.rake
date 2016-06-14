@@ -8,12 +8,12 @@ namespace :fix_location do
   def jobs_with_locations
     stackoverflow_jobs = Job.where('url LIKE ?', '%stackoverflow%')
     stackoverflow_jobs.each do |job|
-      if job.location.nil?
+      if job.old_location.nil?
         check_for_location(job)
       else
-        response = Geocoder.search(job.location)
+        response = Geocoder.search(job.old_location)
         sleep 2
-        if response.empty? || response.count > 1 || check_edge_cases(job.location)
+        if response.empty? || response.count > 1 || check_edge_cases(job.old_location)
           check_for_location(job)
         end
       end
@@ -27,9 +27,9 @@ namespace :fix_location do
       response = Geocoder.search(p_loc)
       sleep 2
       if !response.empty? && response.count == 1 && !check_edge_cases(p_loc)
-        return job.update_attributes(location: p_loc)
+        return job.update_attributes(old_location: p_loc)
       else
-        job.update_attributes(location: nil)
+        job.update_attributes(old_location: nil)
       end
     end
   end

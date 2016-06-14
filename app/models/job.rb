@@ -11,6 +11,7 @@ class Job < ActiveRecord::Base
 
   def self.by_location(search_location)
     # where("lower(location) LIKE ?", "%#{search_location.downcase}%")
+    # binding.pry
     joins(:location).where("lower(name) LIKE ?", "%#{search_location.downcase}%")
   end
 
