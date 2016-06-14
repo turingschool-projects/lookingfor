@@ -4,7 +4,7 @@ class JobSerializer < ActiveModel::Serializer
   has_many :technologies
 
   def location
-    object.location.name
+    object.location.name if object.location
   end
 
 end
