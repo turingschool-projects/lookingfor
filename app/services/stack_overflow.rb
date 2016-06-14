@@ -29,7 +29,7 @@ class StackOverflow < JobFetcher
     { job: {
         title: title,
         url: url_address,
-        location: location,
+        old_location: location,
         raw_technologies: generate_raw_technologies(entry), #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
         description: description,
         remote: self.is_remote?(title),
