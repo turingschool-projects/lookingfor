@@ -85,7 +85,6 @@ describe AuthenticJobsService do
       formatted_entry = { job: {
           title: "Web Developer at Chalk (Denver, CO, US)",
           url: "https://authenticjobs.com/jobs/27094/web-developer",
-          location: "Denver, CO, US",
           raw_technologies: ['ruby'],
           description: "<p><p>We’re a two person partnership located in the oh-so-hip RiNo area of Denver, where we’ve been quietly creating usable and maintainable interactive solutions for our clients. If you’ve ever wanted to be that guy or gal people at the office point at in awe, while uttering the magical phrase, “that's employee number one” - this job’s for you.</p><p>We’re looking for a front-end developer that can make our designs a reality. Under the tutelage of our senior developer, you will use HTML, CSS and Javascript to take a project from hi-fi comps to a fully functioning solution.</p><p>While we’re sure you’re a simply lovely person, <strong>we need to make sure you have a few qualifications first</strong>:</p><ul><li>1+ years development experience.</li><li>Knowledge of standards-compliant HTML5 and CSS3, including responsive design techniques.</li><li>Some familiarity with JavaScript and a smattering of libraries - e.g., jQuery or Underscore/LoDash, etc.</li><li>Familiarity with version control tools (we use Git).</li><li>Ability to perform QA on a myriad of devices with differing screen sizes and resolutions.</li><li>Interest in your career as a craft - this includes researching new technologies, and perfecting your use of current ones.</li><li>Ability to communicate well with both internal team members and external stakeholders.</li></ul><p>That’s the gist of things, <strong>but the following certainly wouldn’t hurt</strong>:</p><ul><li>Familiarity with some server-side technologies. PHP and/or Ruby comes to mind.</li><li>Familiarity with Sketch and/or Photoshop.</li><li>Familiarity with CMS platforms (e.g., Wordpress).</li><li>Familiarity with SEO techniques.</li></ul><p>We have a flexible work schedule, will provide you with a shiny new Macbook Pro and some pretty posh digs for you to do your thing. If this sounds like your jam, send over your resumé and, (if you have one) your github username. The location of any past projects you worked on would be helpful as well. </p><p>We’re looking forward to working together!</p></p>",
           remote: false,
@@ -93,6 +92,9 @@ describe AuthenticJobsService do
         },
         company: {
           name: "Chalk"
+        },
+        location: {
+          name: "Denver, CO, US"
         }
       }
 

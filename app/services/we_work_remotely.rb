@@ -27,7 +27,6 @@ class WeWorkRemotely < JobFetcher
     { job: {
         title: entry.title,
         url: entry.url,
-        location: self.pull_location(summary),
         raw_technologies: self.pull_technologies(description),
         description: description,
         remote: true,
@@ -35,6 +34,9 @@ class WeWorkRemotely < JobFetcher
       },
       company: {
         name: self.pull_company_name(entry.title)
+      },
+      location: {
+        name: self.pull_location(summary),
       }
     }
   end

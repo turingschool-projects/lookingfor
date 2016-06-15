@@ -15,7 +15,6 @@ class AuthenticJobsService < JobFetcher
     { job: {
         title: self.full_title(entry),
         url: entry[:url],
-        location: self.pull_location(entry),
         raw_technologies: self.pull_technologies(entry[:description], term),
         description: entry[:description],
         remote: entry[:telecommuting] == 1 ? true : false,
@@ -23,6 +22,9 @@ class AuthenticJobsService < JobFetcher
       },
       company: {
         name: self.pull_company_name(entry)
+      },
+      location: {
+        name: self.pull_location(entry)
       }
     }
   end

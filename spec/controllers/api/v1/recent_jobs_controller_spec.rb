@@ -61,11 +61,14 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
 
     it 'returns correct number of jobs for location search' do
       job1 = create(:job)
-      job1.update(location: "DENVER")
+      job1.location.update_attributes(name: "DENVER")
+
       job2 = create(:job)
-      job2.update(location: "DENVER")
+      job2.location.update_attributes(name: "DENVEr")
+
       job3 = create(:job)
-      job3.update(location: "Hawaii")
+      job3.location.update_attributes(name: "Hawaii")
+
       get :index, { location: "Denver" }, format: :json
 
       expect(response_body['recent_jobs'].count).to eq(2)
@@ -83,15 +86,23 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
 
     it 'only returns jobs posted within the last month when searching by location' do
       three_month_job = create(:job)
-      three_month_job.update(location: "DENVER", posted_date: 3.months.ago)
+      three_month_job.update_attributes(posted_date: 3.months.ago)
+      three_month_job.location.update_attributes(name: "DENVER")
+
       two_month_job = create(:job)
-      two_month_job.update(location: "DENVER", posted_date: 2.month.ago)
+      two_month_job.update_attributes(posted_date: 2.months.ago)
+      two_month_job.location.update_attributes(name: "DEnVER")
+
+      one_month_job = create(:job)
+      one_month_job.update_attributes(posted_date: 1.months.ago)
+      one_month_job.location.update_attributes(name: "DENVer")
+
       current_job = create(:job)
-      current_job.update(location: "DENVER")
+      current_job.location.update_attributes(name: "DENVEr")
 
       get :index, { location: "Denver" }, format: :json
 
-      expect(response_body['recent_jobs'].count).to eq(2)
+      expect(response_body['recent_jobs'].count).to eq(3)
       expect(response_body['recent_jobs'].first["title"]).to eq(current_job.title)
       expect(response_body['recent_jobs'].last["title"]).to eq(two_month_job.title)
     end

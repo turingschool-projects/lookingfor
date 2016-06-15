@@ -7,9 +7,12 @@ class Job < ActiveRecord::Base
 
   belongs_to :company
   has_and_belongs_to_many :technologies
+  belongs_to :location
 
   def self.by_location(search_location)
-    where("lower(location) LIKE ?", "%#{search_location.downcase}%")
+    # where("lower(location) LIKE ?", "%#{search_location.downcase}%")
+    # binding.pry
+    joins(:location).where("lower(name) LIKE ?", "%#{search_location.downcase}%")
   end
 
   def downcase_tech
