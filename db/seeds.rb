@@ -34,21 +34,31 @@ if Rails.env.development?
   puts "Starting import...this will take a long time"
   Company.import(array)
 
+  array = []
+  puts "Loading Locations"
+  location_number = job_number/10
+
+  location_number.times do | i |
+    array << Location.new(name: Faker::Address.city)
+  end
+  puts "Starting import...this will take a long time"
+  Location.import(array)
 
   # load jobs
   array =[]
   puts "Loading Jobs"
   job_number.times do |i|
-    id = Random.rand(1..company_number)
+    c_id = Random.rand(1..company_number)
+    l_id = Random.rand(1..location_number)
     job_attrs = {
       title: Faker::Company.profession + i.to_s,
       description: Faker::Lorem.paragraph(15),
       url: Faker::Internet.url,
-      location: Faker::Address.city,
       posted_date: Faker::Date.between(2.days.ago, Date.today),
       remote: i % 2 == 0,
       raw_technologies: Technology.pluck(:name).shuffle.take(3),
-      company_id: id
+      company_id: c_id,
+      location_id: l_id
     }
     array << Job.new(job_attrs)
     puts "Added Job  ##{i} to the import array" if i % 1000 == 0
