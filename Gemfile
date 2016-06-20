@@ -21,7 +21,10 @@ gem 'will_paginate-bootstrap'
 gem 'draper'
 gem 'faraday'
 gem 'coveralls', require: false
+gem 'nokogiri'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'geocoder'
+
 
 group :development, :test do
   gem 'rspec-rails'

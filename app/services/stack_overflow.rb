@@ -9,30 +9,37 @@ class StackOverflow < JobFetcher
 
   def scrape
     feed = pull_feed
-    if feed.entries.present?
-      format_entries(feed.entries)
+    if feed.present?
+      format_entries(feed)
     end
   end
 
   def format_entries(entries)
-    entries.map do |entry|
+    entries.css('item').map do |entry|
       formatted_entry = self.format_entry(entry)
       create_records(formatted_entry)
     end
   end
 
   def format_entry(entry)
+    title = entry.css('title').text
+    url_address = entry.css('guid').text
+    location = entry.css('location').text
+    description = entry.css('description').text
     { job: {
-        title: entry.title,
-        url: entry.url,
-        location: self.pull_location(entry.title),
+        title: title,
+        url: url_address,
+        old_location: location,
         raw_technologies: generate_raw_technologies(entry), #["perl", "python", "ruby", "or-go.-ruby-and", "or-go-experience-is-stron"],
-        description: entry.summary,
-        remote: self.is_remote?(entry.title),
-        posted_date: entry.published
+        description: description,
+        remote: self.is_remote?(title),
+        posted_date: entry.css('pubdate').text
       },
       company: {
-        name: self.pull_company_name(entry.title)
+        name: self.pull_company_name(title)
+      },
+      location: {
+        name: location
       }
     }
   end
@@ -54,11 +61,13 @@ class StackOverflow < JobFetcher
   private
 
   def generate_raw_technologies(entry)
-    entry.categories | [term]
+    entry.css('category').map do |category|
+      category.text
+    end
   end
 
   def pull_feed
     url = BASE_URI + term
-    Feedjira::Feed.fetch_and_parse url
+    Nokogiri::HTML(open(url))
   end
 end

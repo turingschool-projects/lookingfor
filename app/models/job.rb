@@ -3,8 +3,17 @@ class Job < ActiveRecord::Base
   before_save { |tech| tech.downcase_tech }
 
   scope :by_date, -> { order(posted_date: :desc) }
+  scope :last_two_months, -> { where("posted_date >= ?", 2.month.ago).order(posted_date: :desc) }
+
   belongs_to :company
   has_and_belongs_to_many :technologies
+  belongs_to :location
+
+  def self.by_location(search_location)
+    # where("lower(location) LIKE ?", "%#{search_location.downcase}%")
+    # binding.pry
+    joins(:location).where("lower(name) LIKE ?", "%#{search_location.downcase}%")
+  end
 
   def downcase_tech
     self.raw_technologies = self.raw_technologies.compact.map(&:downcase)
@@ -13,5 +22,9 @@ class Job < ActiveRecord::Base
   def assign_tech
     tech_matches = Technology.where(name: raw_technologies)
     self.technologies = tech_matches
+  end
+
+  def self.by_tech(tech_name)
+    joins(:technologies).where(technologies: {name: tech_name.downcase})
   end
 end
