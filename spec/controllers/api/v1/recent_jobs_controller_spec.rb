@@ -143,13 +143,13 @@ RSpec.describe Api::V1::RecentJobsController, type: :controller do
     end
 
     it "returns total-pages when api gets called" do
-      create_list(:job, 50)
+      create_list(:job, 55)
       tech = create(:technology, name: "ruby")
       Job.find_each {|job| job.technologies << tech}
 
       get :index, {technology: "ruby"}
 
-      expect(response_body["meta"]["total-pages"]).to eq(2)
+      expect(response_body["meta"]["total-pages"]).to eq(3)
     end
   end
 end

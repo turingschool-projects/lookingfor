@@ -26,6 +26,7 @@ class Job < ActiveRecord::Base
   end
 
   def self.total_pages(num_of_items_per_page)
-     last_two_months.count / num_of_items_per_page
+    calculation = last_two_months.count / num_of_items_per_page.to_f
+    calculation.ceil
   end
 end
