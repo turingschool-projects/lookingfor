@@ -75,4 +75,27 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       expect(json_job['company']).to be_instance_of(Hash)
     end
   end
+
+  describe "GET #by_company" do
+    let(:response_body) { JSON.parse(response.body) }
+    let(:company) { create(:company) }
+    let(:job1) { create(:job, company_id: company.id, posted_date: Date.parse('1/1/2001')) }
+    let(:job2) { create(:job, company_id: company.id, posted_date: Date.parse('2/1/2000')) }
+    let(:job3) { create(:job, company_id: company.id, posted_date: Date.parse('1/1/2005')) }
+    let(:job4) { create(:job, company_id: company.id + 1, posted_date: Date.parse('1/1/2005')) }
+
+    it "is successful" do
+      get :by_company, id: company.id, format: :json
+
+      expect(:success)
+    end
+
+    it 'returns all jobs for the company ordered by posted date in descending order' do
+      get :by_company, id: company.id, format: :json
+      json_jobs = response_body['jobs']
+      require 'pry'; binding.pry
+
+      expect(response_body).to eq [job3, job1, job2]
+    end
+  end
 end
