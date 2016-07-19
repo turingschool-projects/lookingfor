@@ -93,4 +93,15 @@ describe Job do
       expect(coords['longitude']).to eq(-74.0059731)
     end
   end
+
+  describe '#total_pages' do
+    it 'returns the total amount of pages' do
+      create_list(:job, 4)
+      tech = create(:technology, name: "ruby")
+      Job.find_each {|job| job.technologies << tech}
+
+      expect(Job.count).to eq(4)
+      expect(Job.total_pages(2)).to eq(2)
+    end
+  end
 end

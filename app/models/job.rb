@@ -24,4 +24,8 @@ class Job < ActiveRecord::Base
   def self.by_tech(tech_name)
     joins(:technologies).where(technologies: {name: tech_name.downcase})
   end
+
+  def self.total_pages(num_of_items_per_page)
+     last_two_months.count / num_of_items_per_page
+  end
 end
