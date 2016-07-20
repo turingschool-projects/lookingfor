@@ -20,17 +20,23 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       expect(json_company['jobs']).to be_instance_of(Array)
     end
 
-    it 'returns all jobs for the company ordered by posted date in descending order' do
+    it 'returns all jobs for the company' do
       company = create(:company)
-      job1 = create(:job, company_id: company.id, posted_date: Date.parse('1/1/2001'))
-      job2 = create(:job, company_id: company.id, posted_date: Date.parse('2/1/2000'))
-      job3 = create(:job, company_id: company.id, posted_date: Date.parse('1/1/2005'))
-      job4 = create(:job, company_id: company.id + 1, posted_date: Date.parse('1/1/2005'))
+      job1 = create(:job, company: company)
+      job2 = create(:job, company: company)
+      job3 = create(:job)
 
       get :show, id: company.id, format: :json
       json_jobs = response_body['company']['jobs']
 
-      expect(json_jobs).to eq [job3, job1, job2]
+      expect(json_jobs.length).to eq(2)
+      expect(json_jobs[0]['id']).to eq(job1.id)
+      expect(json_jobs[1]['id']).to eq(job2.id)
+      expect(json_jobs[0]['title']).to eq(job1.title)
+      expect(json_jobs[0]['description']).to eq(job1.description)
+      expect(json_jobs[0]['url']).to eq(job1.url)
+      expect(json_jobs[0]['remote']).to eq(job1.remote)
+      expect(json_jobs[0]['technologies']).to eq(job1.technologies)
     end
   end
 end
