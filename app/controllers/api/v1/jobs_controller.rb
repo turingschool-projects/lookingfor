@@ -9,9 +9,4 @@ class Api::V1::JobsController < ApplicationController
     @job = Job.find(params[:id])
     render json: @job
   end
-
-  def by_company
-    jobs = Company.find(params[:id]).jobs.order('posted_date DESC')
-    paginate json: jobs, per_page: 25
-  end
 end
