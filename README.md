@@ -77,7 +77,7 @@ To run a single test, you can do so by running the its first line:
 
 ### Workflow
 
-1. Fork and clone.
+1. Clone this repo.
 1. Add the upstream lookingfor repository as a new remote to your clone.
    `git remote add upstream https://github.com/LookingForMe/lookingfor.git`
 1. Create a new branch
