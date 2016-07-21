@@ -9,5 +9,4 @@ class Api::V1::JobsController < ApplicationController
     @job = Job.find(params[:id])
     render json: @job
   end
-
 end
