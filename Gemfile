@@ -24,6 +24,8 @@ gem 'coveralls', require: false
 gem 'nokogiri'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'geocoder'
+gem 'exception_notification'
+gem 'slack-notifier'
 
 
 group :development, :test do
