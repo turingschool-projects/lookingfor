@@ -108,5 +108,10 @@ describe WeWorkRemotely do
 
       expect(company_name).to eq("We Work Remotely")
     end
+
+    it "pulls locations from feed" do
+      require "pry"; binding.pry
+    end
+
   end
 end
