@@ -39,9 +39,3 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
-
-Rails.application.config.middleware.use ExceptionNotification::Rack,
-  :slack => {
-    :webhook_url => ENV['SLACK_WEBHOOK_URL'],
-    :ignore_cascade_pass => false
-  }

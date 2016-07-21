@@ -81,6 +81,5 @@ end
 
 Rails.application.config.middleware.use ExceptionNotification::Rack,
   :slack => {
-    :webhook_url => ENV['SLACK_WEBHOOK_URL'],
-    :ignore_cascade_pass => false
+    :webhook_url => ENV['SLACK_WEBHOOK_URL']
   }
