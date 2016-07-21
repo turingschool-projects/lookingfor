@@ -22,4 +22,8 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:any, /authenticjobs.com/).to_rack(FakeAuthenticJobs)
   end
+
+  config.before(:each) do
+    stub_request(:any, /weworkremotely/).to_rack(FakeWeWorkJobs)
+  end
 end

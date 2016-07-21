@@ -97,4 +97,16 @@ describe WeWorkRemotely do
       expect(raw_technologies).to eq([])
     end
   end
+
+  describe 'real data testing' do
+    let(:real_feed) { service.pull_feed }
+
+    it "pulls company name from description" do
+      description = real_feed.description
+
+      company_name = service.pull_company_name(description)
+
+      expect(company_name).to eq("We Work Remotely")
+    end
+  end
 end
