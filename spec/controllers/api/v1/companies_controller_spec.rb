@@ -16,7 +16,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       get :show, id: company.id, format: :json
       json_company = response_body['company']
 
-      expect(json_company['name']).to be_instance_of(String)
+      expect(json_company['name']).to eq(company.name)
       expect(json_company['jobs']).to be_instance_of(Array)
     end
 
