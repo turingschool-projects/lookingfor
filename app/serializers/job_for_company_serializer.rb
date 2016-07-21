@@ -1,6 +1,5 @@
-class JobSerializer < ActiveModel::Serializer
+class JobForCompanySerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :url, :location, :posted_date, :remote
-  has_one :company, serializer: CompanyForJobsSerializer
   has_many :technologies
 
   def location
