@@ -77,7 +77,15 @@ To run a single test, you can do so by running the its first line:
 
 ### Workflow
 
+##### If you are a collaborator:
 1. Clone this repo.
+1. Create a new branch
+   `git checkout -b name-of-branch`
+1. Commit and push as usual on your branch.
+1. When you're ready to submit a pull request, resolve any conflicts, push to your branch and submit the pull request as usual.
+
+##### If you want to contribute, but are not a collaborator:
+1. Fork this repo.
 1. Add the upstream lookingfor repository as a new remote to your clone.
    `git remote add upstream https://github.com/LookingForMe/lookingfor.git`
 1. Create a new branch
@@ -91,7 +99,11 @@ To run a single test, you can do so by running the its first line:
 
 ### Application Monitoring
 
-LookingFor uses [New Relic](http://newrelic.com/). New Relic is also accessible in development at the localhost:300/newrelic endpoint.
+##### Slack Error Reporting
+For those collaborators from Turing, all production errors can be found in real time on the #lookingfor-errors channel in Slack.
+
+##### General Monitoring
+LookingFor uses [New Relic](http://newrelic.com/). New Relic is also accessible in development at [localhost:3000/newrelic](http://localhost:3000/newrelic)
 
 In order to access the account for LookingFor, you will need to ask one of the maintainers to invite you via e-mail. New Relic is already set up with Heroku, so this is all you need to access the production data.
 
@@ -101,7 +113,7 @@ Once you have the license key and access to the account, you'll need to set up f
 
 1. Generate an application.yml file by typing in your terminal:
 
-  `$ bundle exec figaro install`
+  `bundle exec figaro install`
 
 2. Add the following line to your application.yml file:
 
