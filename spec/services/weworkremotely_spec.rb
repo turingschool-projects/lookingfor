@@ -110,8 +110,16 @@ describe WeWorkRemotely do
     end
 
     it "pulls locations from feed" do
-      require "pry"; binding.pry
-    end
+      cities = ["San Francisco", "Pune, India", "None - virtual office!"]
 
+      all_entries = real_feed.entries
+
+      list_of_locations = all_entries.map do |x|
+        clean_summary = WeWorkRemotely.strip_summary(x.summary)
+        WeWorkRemotely.pull_location(clean_summary)
+      end
+
+      expect(list_of_locations[0..2]).to eq(cities)
+    end
   end
 end
