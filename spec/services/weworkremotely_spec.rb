@@ -97,4 +97,29 @@ describe WeWorkRemotely do
       expect(raw_technologies).to eq([])
     end
   end
+
+  describe 'real data testing' do
+    let(:real_feed) { service.pull_feed }
+
+    it "pulls company name from description" do
+      description = real_feed.description
+
+      company_name = service.pull_company_name(description)
+
+      expect(company_name).to eq("We Work Remotely")
+    end
+
+    it "pulls locations from feed" do
+      cities = ["San Francisco", "Pune, India", "None - virtual office!"]
+
+      all_entries = real_feed.entries
+
+      list_of_locations = all_entries.map do |x|
+        clean_summary = WeWorkRemotely.strip_summary(x.summary)
+        WeWorkRemotely.pull_location(clean_summary)
+      end
+
+      expect(list_of_locations[0..2]).to eq(cities)
+    end
+  end
 end

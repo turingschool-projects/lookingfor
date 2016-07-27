@@ -49,6 +49,7 @@ class WeWorkRemotely < JobFetcher
 
   def self.pull_location(summary)
     regex = /Headquarters: (.*)\s* URL/
+
     regex.match(summary)[1] rescue ''
   end
 
