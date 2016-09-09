@@ -32,4 +32,17 @@ class Job < ActiveRecord::Base
     calculation = last_two_months.count / num_of_items_per_page.to_f
     calculation.ceil
   end
+
+  def self.technologies_by_month
+    # Will serve as a trailing data set (for 6 months or whatever the limit is)
+    # For each month, count the number of job postings that contain a certain technology
+    # Export some array like:
+    # [[Technology Headers],
+    # [month_date1, tech1_num, tech2_num],
+    # [month_date2, tech1_num, tech2_num],
+    # [month_date3, tech1_num, tech2_num],
+    # [.],
+    # [.],
+    # [.]]
+  end
 end
