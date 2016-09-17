@@ -10,8 +10,6 @@ class Job < ActiveRecord::Base
   belongs_to :location
 
   def self.by_location(search_location)
-    # where("lower(location) LIKE ?", "%#{search_location.downcase}%")
-    # binding.pry
     joins(:location).where("lower(name) LIKE ?", "%#{search_location.downcase}%")
   end
 
@@ -33,16 +31,8 @@ class Job < ActiveRecord::Base
     calculation.ceil
   end
 
-  def self.technologies_by_month
-    # Will serve as a trailing data set (for 6 months or whatever the limit is)
-    # For each month, count the number of job postings that contain a certain technology
-    # Export some array like:
-    # [[Technology Headers],
-    # [month_date1, tech1_num, tech2_num],
-    # [month_date2, tech1_num, tech2_num],
-    # [month_date3, tech1_num, tech2_num],
-    # [.],
-    # [.],
-    # [.]]
+  def self.current_openings_technology_count
+    # This is for all jobs...not dependent on the date
+    group(:raw_technologies).count
   end
 end
