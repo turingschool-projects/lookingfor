@@ -32,7 +32,9 @@ class Job < ActiveRecord::Base
   end
 
   def self.current_openings_technology_count
-    # This is for all jobs...not dependent on the date
-    group(:raw_technologies).count
+    # Not the best active record way to do this, obviously
+    Technology.all.map do |tech|
+      [tech.name, last_two_months.by_tech(tech.name).count]
+    end
   end
 end

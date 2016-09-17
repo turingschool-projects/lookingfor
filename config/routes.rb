@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :jobs, only: [:index, :show]
       resources :companies, only: [:show]
       get '/recent_jobs', to: "recent_jobs#index"
+      get '/current_openings_technology_count', to: "trends#current_openings_technology_count"
     end
   end
 end
