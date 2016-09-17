@@ -25,9 +25,11 @@ RSpec.describe Api::V1::TrendsController, type: :controller do
 
       get :current_openings_technology_count, format: :json
 
-      expect(response_body['trends'].count).to eq(2)
-      expect(response_body['trends'][0]).to eq([tech1.name, 1])
-      expect(response_body['trends'][1]).to eq([tech2.name, 2])
+      trends = response_body['trends']
+
+      expect(trends.count).to eq(2)
+      expect(trends[0]).to eq([tech1.name, 1])
+      expect(trends[1]).to eq([tech2.name, 2])
     end
   end
 end
