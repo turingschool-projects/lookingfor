@@ -10,8 +10,6 @@ class Job < ActiveRecord::Base
   belongs_to :location
 
   def self.by_location(search_location)
-    # where("lower(location) LIKE ?", "%#{search_location.downcase}%")
-    # binding.pry
     joins(:location).where("lower(name) LIKE ?", "%#{search_location.downcase}%")
   end
 
@@ -31,5 +29,11 @@ class Job < ActiveRecord::Base
   def self.total_pages(num_of_items_per_page)
     calculation = last_two_months.count / num_of_items_per_page.to_f
     calculation.ceil
+  end
+
+  def self.current_openings_technology_count
+    Technology.all.map do |tech|
+      {label: tech.name, value: last_two_months.by_tech(tech.name).count}
+    end
   end
 end
