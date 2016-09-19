@@ -51,3 +51,7 @@ group :development do
   gem 'spring'
   gem 'activerecord-import'
 end
+
+group :production do
+  gem 'rails_12factor'
+end
