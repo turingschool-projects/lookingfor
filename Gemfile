@@ -26,11 +26,11 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'geocoder'
 gem 'exception_notification'
 gem 'slack-notifier'
-
+gem 'poltergeist'
+gem 'capybara'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'byebug'
@@ -38,7 +38,6 @@ group :development, :test do
   gem 'faker'
   gem 'rails-perftest'
   gem 'ruby-prof'
-  gem 'poltergeist'
 end
 
 group :test do
