@@ -28,8 +28,8 @@ RSpec.describe Api::V1::TrendsController, type: :controller do
       trends = response_body['trends']
 
       expect(trends.count).to eq(2)
-      expect(trends[0]).to eq([tech1.name, 1])
-      expect(trends[1]).to eq([tech2.name, 2])
+      expect(trends[0]).to eq({"label" => tech1.name, "value" => 1})
+      expect(trends[1]).to eq({"label" => tech2.name, "value" => 2})
     end
   end
 end

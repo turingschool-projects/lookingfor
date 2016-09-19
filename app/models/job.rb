@@ -32,7 +32,6 @@ class Job < ActiveRecord::Base
   end
 
   def self.current_openings_technology_count
-    # Not the best active record way to do this, obviously
     Technology.all.map do |tech|
       {label: tech.name, value: last_two_months.by_tech(tech.name).count}
     end
