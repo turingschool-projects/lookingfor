@@ -1,4 +1,4 @@
-require 'activerecord-import'
+
 
 if Rails.env.production?
   t_names = ["ruby", "javascript", "go", "react", "ember", "clojure", "angular", "rails", "python"]
@@ -9,6 +9,7 @@ if Rails.env.production?
 end
 
 if Rails.env.development?
+  require 'activerecord-import'
   company_number = 12000
   job_number = 30000
 
