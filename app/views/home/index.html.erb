@@ -25,7 +25,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h4><%= job.decorated_title %>
-                @ <%= link_to "#{job.company_name}", company_path(job.company.id) %><br><br>
+                <%= link_to "#{job.company_name}", company_path(job.company.id) %><br><br>
                 <%= link_to "View Listing", job_path(job), class: "btn btn-sm btn-primary" %>
               </h4>
             </div>
