@@ -28,6 +28,7 @@ gem 'exception_notification'
 gem 'slack-notifier'
 gem 'poltergeist'
 gem 'capybara'
+gem 'bunny'
 
 group :development, :test do
   gem 'rspec-rails'
