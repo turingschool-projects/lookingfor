@@ -27,12 +27,6 @@ namespace :job_fetch do
     end
   end
 
-  desc "Run the github fetcher"
-
-  task github: :environment do
-    GithubService.scrape
-  end
-
   desc "the build task calls each rake task individually"
 
   def build(type)

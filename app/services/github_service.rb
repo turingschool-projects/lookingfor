@@ -2,7 +2,7 @@ require 'bunny'
 # require 'pry'
 # require 'byebug'
 
-class Subscriber
+class GithubService < JobFetcher
   def self.subscribe_and_create_jobs
     connection = Bunny.new(
                             :host => "experiments.turing.io",
@@ -13,7 +13,6 @@ class Subscriber
     connection.start
     channel = connection.create_channel
     queue = channel.queue("scrapers.to.lookingfor")
-
     queue.subscribe do |delivery_info, metadata, payload|
       parsed = JSON.parse(payload, symbolize_names: true)
       Job.create!(title: parsed[:title],
@@ -21,8 +20,37 @@ class Subscriber
                   url: parsed[:url],
                   posted_date: parsed[:posted_date],
                   )
+
+    end
+
+    loop do
+
     end
   end
+
+  def self.create_entries
+
+  end
+
+  def self.format_entries
+    { job: {
+        title: entry.title,
+        url: entry.url,
+        raw_technologies: self.pull_technologies(description),
+        description: description,
+        remote: true,
+        posted_date: entry.published
+      },
+      company: {
+        name: self.pull_company_name(entry.title)
+      },
+      location: {
+        name: self.pull_location(summary),
+      }
+    }
+  end
+
+
 
 end
 
