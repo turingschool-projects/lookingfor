@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220214509) do
+ActiveRecord::Schema.define(version: 20170220220520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,8 @@ ActiveRecord::Schema.define(version: 20170220214509) do
   end
 
   create_table "monocle_companies", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "monocle_id"
   end
 
   create_table "technologies", force: :cascade do |t|
