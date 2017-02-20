@@ -39,4 +39,11 @@ namespace :job_fetch do
     Rake::Task["job_fetch:#{type}"].invoke
   end
 
+  desc "Start to Job creator"
+
+  task joblistener: :environment do
+    puts "Starting job creator"
+    JobCreator.start
+  end
+
 end
