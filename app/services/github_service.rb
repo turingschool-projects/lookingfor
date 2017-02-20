@@ -40,22 +40,24 @@ class GithubService < JobFetcher
   end
 
   def self.find_or_create_company(company_name)
-    response = Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies/find?name=#{company_name}")
+    # response = Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies/find?name=#{company_name}")
+    response = Faraday.get("https://localhost:3001/api/v1/companies/find?name=#{company_name}")
 
     if response.status == 404
       # conn = Faraday.new(:url => "https://turingmonocle-staging.herokuapp.com") do |faraday|
       #   faraday.request :url_encoded
       #   faraday.adapter Faraday.default_adapter
       # end
-      data = { name: company_name , token: "TurMonLook4" }
+      data = {company: { name: company_name }, token: "TurMonLook4" }
 
-      Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies", data)
-      conn.post "/api/v1/companies", data
-      conn.post do |req|
-        req.url "/api/v1/companies"
-        req.params[:name] = company_name
-        req.params[:token] = "TurMonLook4"
-      end
+      # Faraday.post("https://turingmonocle-staging.herokuapp.com/api/v1/companies", data)
+      Faraday.post("https://localhost:3001/api/v1/companies", data)
+      # conn.post "/api/v1/companies", data
+      # conn.post do |req|
+      #   req.url "/api/v1/companies"
+      #   req.params[:name] = company_name
+      #   req.params[:token] = "TurMonLook4"
+      # end
 
 
     else
