@@ -29,10 +29,9 @@ gem 'slack-notifier'
 gem 'poltergeist'
 gem 'capybara'
 gem 'bunny'
-gem 'rb-readline'
-
 
 group :development, :test do
+  gem 'rb-readline'
   gem 'rspec-rails'
   gem 'launchy'
   gem 'factory_girl_rails'
