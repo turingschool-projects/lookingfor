@@ -6,6 +6,7 @@ class Job < ActiveRecord::Base
   scope :last_two_months, -> { where("posted_date >= ?", 2.month.ago).order(posted_date: :desc) }
 
   belongs_to :company
+  belongs_to :monocle_company
   has_and_belongs_to_many :technologies
   belongs_to :location
 
