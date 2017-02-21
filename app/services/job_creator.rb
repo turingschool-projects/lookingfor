@@ -20,18 +20,21 @@ class JobCreator
       response = Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies/find?name=#{job['company']}")
 
       if response.status == 404
-        #create company then create the job
         company_data = { company: {name: job['company']}, token: 'TurMonLook4'}
-        post_response = Faraday.post("https://turingmonocle-staging.herokuapp.com/api/v1/companies", company)
+        post_response = Faraday.post("https://turingmonocle-staging.herokuapp.com/api/v1/companies", company_data)
         monocle_response = JSON.parse(post_response.body)
 
-        company = Company.create!(name: monocle_response['name'], monocle_id: monocle_response['id'])
+        company = Company.find_or_create_by!(name: monocle_response['name'])
+        company.monocle_id = monocle_response['id']
+        company.save
         company.jobs.create!(title: job['title'], description: job['description'])
-        puts "great, congrats!"
+
       else
         parsed_response = JSON.parse(response.body)
-        #store the monocle_company_id with the job in lookingfor
-        company = Company.find_or_create_by(name: job['company'], monocle_id: parsed_response['company_id'])
+        company = Company.find_or_create_by!(name: job['company'])
+        company.monocle_id = parsed_response['company_id']
+        company.save!
+
         company.jobs.create!(title: job['title'], description: job['description'])
       end
     end
