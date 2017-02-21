@@ -27,15 +27,15 @@ class JobCreator
         company = Company.find_or_create_by!(name: monocle_response['name'])
         company.monocle_id = monocle_response['id']
         company.save
-        company.jobs.create!(title: job['title'], description: job['description'])
+        company.jobs.create!(title: job['title'], description: job['description'], url: job['url'])
 
       else
         parsed_response = JSON.parse(response.body)
+
         company = Company.find_or_create_by!(name: job['company'])
         company.monocle_id = parsed_response['company_id']
         company.save!
-
-        company.jobs.create!(title: job['title'], description: job['description'])
+        company.jobs.create!(title: job['title'], description: job['description'], url: job['url'])
       end
     end
 
