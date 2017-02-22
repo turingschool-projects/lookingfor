@@ -9,7 +9,7 @@ RSpec.describe Api::V1::CompanyJobsController, type: :controller do
 
         get :index, monocle_id: company.monocle_id, format: :json
 
-        jobs = JSON.parse(response.body, symbolize_names: true)
+        jobs = JSON.parse(response.body, symbolize_names: true)[:company_jobs]
 
         expect(response).to have_http_status(200)
         expect(jobs.count).to eq(2)
