@@ -17,5 +17,16 @@ RSpec.describe Api::V1::CompanyJobsController, type: :controller do
         expect(jobs.second[:title]).to eq('job 2')
       end
     end
+
+    context "with wrong query params" do
+      it "returns an error message with relevant status code" do
+        get :index, monocle_id: 1, format: :json
+
+        parsed_response = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response).to have_http_status(500)
+        expect(parsed_response[:error]).to eq("Query error")
+      end
+    end
   end
 end
