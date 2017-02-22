@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :companies, only: [:show]
       get '/recent_jobs', to: "recent_jobs#index"
       get '/current_openings_technology_count', to: "trends#current_openings_technology_count"
-      get '/company_jobs/:id', to: 'company_jobs#index'
+      get '/company_jobs', to: 'company_jobs#index'
     end
   end
 end
