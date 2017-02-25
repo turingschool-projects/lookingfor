@@ -14,9 +14,8 @@ class JobCreator
     queue.subscribe do |delivery_info, metadata, payload|
       puts "I hit the queue!"
       data = JSON.parse(payload)
-      binding.pry
-      job_with_location = find_location(data)
-      process_payload(job_with_location)
+      formatted_data = find_location_and_format_data(data)
+      process_payload(formatted_data)
     end
 
     loop do
@@ -56,7 +55,7 @@ class JobCreator
     end
   end
 
-  def self.find_location(data)
+  def self.find_location_and_format_data(data)
     #Hit google and get location
     #successful hit
     #unscuccessful hit
@@ -71,21 +70,21 @@ class JobCreator
       req.params['radius'] = '500'
     end
     address = JSON.parse(response.body)["results"].first["formatted_address"]
-    format(data, address)
+    format_data(data, address)
   end
 
-  def self.format(data, address)
+  def self.format_data(data, address)
     address = address.split(',')
     blah = { job: {
-        title: job['title'],
-        url: job['url'],
-        raw_technologies: job['raw_technologies'],
-        description: job['description'],
-        remote: job['remote'],
-        posted_date: job['published']
+        title: data['job']['title'],
+        url: data['job']['url'],
+        raw_technologies: data['job']['raw_technologies'],
+        description: data['job']['description'],
+        remote: data['job']['remote'],
+        posted_date: data['job']['published']
       },
       company: {
-        name: job['company']
+        name: data['company']['name']
       },
       location: {
         street_address: address[0],
@@ -94,6 +93,5 @@ class JobCreator
         zip_code: address[2].split[1].strip
       }
     }
-    binding.pry
   end
 end
