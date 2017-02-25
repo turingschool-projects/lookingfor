@@ -22,10 +22,11 @@ class JobCreator
     end
   end
 
-  def self.process_payload(job)
+  def self.process_payload(formatted_data)
+    binding.pry
     conn = Faraday.new("https://turingmonocle-staging.herokuapp.com/api/v1/companies", { ssl: { verify: false } })
     # response = Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies/find?name=#{job['company']}")
-    response = conn.get("/find?name=#{job['company']}")
+    response = conn.get("/find?name=#{formatted_data['company']['name']}")
 
     if response.status == 404
       company_data = { company: {name: job['company']}, token: 'TurMonLook4'}
@@ -63,17 +64,25 @@ class JobCreator
     location = data['location']['name'] || "Denver"
     #something here to check for location name and if not, default to denver because builtin is the only one that doesn't have it
     conn = Faraday.new("https://maps.googleapis.com/maps/api/place/textsearch/json")
+
     response = conn.get do |req|
       req.params['query'] = company
       req.params['key'] = ENV['google_maps_key']
       req.params['location'] = location
       req.params['radius'] = '500'
     end
-    address = JSON.parse(response.body)["results"].first["formatted_address"]
-    format_data(data, address)
+    binding.pry
+    parsed_response = JSON.parse(response.body)
+
+    if parsed_response['status'] == 'ZERO_RESULTS'
+      format_without_address(data)
+    else
+      address = JSON.parse(response.body)["results"].first["formatted_address"]
+      format_with_address(data, address)
+    end
   end
 
-  def self.format_data(data, address)
+  def self.format_with_address(data, address)
     address = address.split(',')
     blah = { job: {
         title: data['job']['title'],
@@ -94,4 +103,23 @@ class JobCreator
       }
     }
   end
+
+  def self.format_without_address(data)
+    blah = { job: {
+        title: data['job']['title'],
+        url: data['job']['url'],
+        raw_technologies: data['job']['raw_technologies'],
+        description: data['job']['description'],
+        remote: data['job']['remote'],
+        posted_date: data['job']['published']
+      },
+      company: {
+        name: data['company']['name']
+      },
+      location: {
+        name: nil
+      }
+    }
+  end
+
 end
