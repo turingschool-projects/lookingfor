@@ -13,8 +13,9 @@ class JobCreator
 
     queue.subscribe do |delivery_info, metadata, payload|
       puts "I hit the queue!"
-      job = JSON.parse(payload)
-      job_with_location = find_location(job)
+      data = JSON.parse(payload)
+      binding.pry
+      job_with_location = find_location(data)
       process_payload(job_with_location)
     end
 
@@ -55,24 +56,44 @@ class JobCreator
     end
   end
 
-  def self.find_location(job)
-
+  def self.find_location(data)
     #Hit google and get location
     #successful hit
     #unscuccessful hit
-    query = job["company"]
-
+    company = data["company"]['name']
+    location = data['location']['name'] || "Denver"
+    #something here to check for location name and if not, default to denver because builtin is the only one that doesn't have it
     conn = Faraday.new("https://maps.googleapis.com/maps/api/place/textsearch/json")
-    respone = conn.get do |req|
-      req.params['query'] = query
+    response = conn.get do |req|
+      req.params['query'] = company
       req.params['key'] = ENV['google_maps_key']
-      req.params['location'] = 'Denver'
+      req.params['location'] = location
       req.params['radius'] = '500'
     end
-    binding.pry
+    address = JSON.parse(response.body)["results"].first["formatted_address"]
+    format(data, address)
   end
 
-  # def self.format(located_job)
-  #
-  # end
+  def self.format(data, address)
+    address = address.split(',')
+    blah = { job: {
+        title: job['title'],
+        url: job['url'],
+        raw_technologies: job['raw_technologies'],
+        description: job['description'],
+        remote: job['remote'],
+        posted_date: job['published']
+      },
+      company: {
+        name: job['company']
+      },
+      location: {
+        street_address: address[0],
+        city: address[1].strip,
+        state: address[2].split.first.strip,
+        zip_code: address[2].split[1].strip
+      }
+    }
+    binding.pry
+  end
 end
