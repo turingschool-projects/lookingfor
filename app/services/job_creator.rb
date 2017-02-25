@@ -44,8 +44,15 @@ class JobCreator
         #Hit google and get location
         #successful hit
         #unscuccessful hit
+        binding.pry
+        conn = Faraday.new("https://maps.googleapis.com/maps/api/place/textsearch/json")
+        conn.get do |req|
+          req.params['query'] = ''
+          req.params['key'] = ENV['google_maps_key']
+          req.params['location'] = 'Denver'
+          req.params['radius'] = '500'
+        end
       end
-    end
 
     loop do
     end
