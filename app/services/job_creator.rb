@@ -13,7 +13,8 @@ class JobCreator
 
     queue.subscribe do |delivery_info, metadata, payload|
       job = JSON.parse(payload)
-      process_payload(job)
+      job_with_location = find_location(job)
+      process_payload(job_with_location)
     end
 
     def self.process_payload(job)
@@ -36,6 +37,13 @@ class JobCreator
         company.monocle_id = parsed_response['company_id']
         company.save!
         company.jobs.create!(title: job['title'], description: job['description'], url: job['url'])
+      end
+
+
+      def self.find_location(job)
+        #Hit google and get location
+        #successful hit
+        #unscuccessful hit
       end
     end
 
