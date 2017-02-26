@@ -23,12 +23,12 @@ class JobCreator
   end
 
   def self.process_payload(formatted_data)
-    conn = Faraday.new("https://turingmonocle-staging.herokuapp.com/api/v1/companies", { ssl: { verify: false } })
+    conn = Faraday.new("https://localhost:3001/api/v1/companies", { ssl: { verify: false } })
     # response = Faraday.get("https://turingmonocle-staging.herokuapp.com/api/v1/companies/find?name=#{job['company']}")
     response = conn.get("/find?name=#{formatted_data[:company][:name]}")
 
     if response.status == 404
-      company_data = { company: {name: formatted_data[:company][:name]}, token: 'TurMonLook4'}
+      company_data = { company: {name: formatted_data[:company][:name]}, location: formatted_data[:location], token: 'TurMonLook4'}
       # post_response = Faraday.post("https://turingmonocle-staging.herokuapp.com/api/v1/companies", company_data)
       post_response = conn.post do |req|
         req.params = company_data
@@ -60,7 +60,7 @@ class JobCreator
     #successful hit
     #unscuccessful hit
     company = data[:company][:name]
-    location = data[:location][:name] || "Denver"
+    location = data[:location][:name]
     #something here to check for location name and if not, default to denver because builtin is the only one that doesn't have it
     conn = Faraday.new("https://maps.googleapis.com/maps/api/place/textsearch/json")
 
@@ -68,7 +68,7 @@ class JobCreator
       req.params['query'] = company
       req.params['key'] = ENV['google_maps_key']
       req.params['location'] = location
-      req.params['radius'] = '500'
+      req.params['radius'] = '50000'
     end
     parsed_response = parse(response.body)
 
