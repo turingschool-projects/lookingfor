@@ -29,6 +29,7 @@ gem 'slack-notifier'
 gem 'poltergeist'
 gem 'capybara'
 gem 'bunny'
+gem 'thin'
 
 group :development, :test do
   gem 'rb-readline'
