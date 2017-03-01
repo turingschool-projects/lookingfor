@@ -57,7 +57,7 @@ class JobCreator
   end
 
   def self.conn
-    Faraday.new("https://0.0.0.0:3002", { ssl: { verify: false } })
+    Faraday.new("https://monocle.turing.io", { ssl: { verify: false } })
   end
 
   def self.create_company(company_name, company_id)
@@ -155,5 +155,4 @@ class JobCreator
   def self.parse(data)
     JSON.parse(data, symbolize_names: true)
   end
-
 end
