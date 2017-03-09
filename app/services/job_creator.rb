@@ -34,14 +34,14 @@ class JobCreator
 
   def self.create_job_from_found_company(formatted_data, company_id)
     company = create_company(formatted_data[:company][:name], company_id)
-    job = company.jobs.create!(title: formatted_data[:job][:title], description: formatted_data[:job][:description], url: formatted_data[:job][:url])
+    job = company.jobs.find_or_create_by!(title: formatted_data[:job][:title], description: formatted_data[:job][:description], url: formatted_data[:job][:url])
     puts "created #{job.title}"
   end
 
   def self.create_monocle_company(formatted_data)
     monocle_response = post_to_monocle(formatted_data)
     company = create_company(monocle_response[:name], monocle_response[:id])
-    job = company.jobs.create!(title: formatted_data[:job][:title], description: formatted_data[:job][:description], url: formatted_data[:job][:url])
+    job = company.jobs.find_or_create_by!(title: formatted_data[:job][:title], description: formatted_data[:job][:description], url: formatted_data[:job][:url])
     puts "created/found #{company.name} with created #{job.title}"
   end
 
