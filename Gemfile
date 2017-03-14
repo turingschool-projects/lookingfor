@@ -28,8 +28,11 @@ gem 'exception_notification'
 gem 'slack-notifier'
 gem 'poltergeist'
 gem 'capybara'
+gem 'bunny'
+gem 'thin'
 
 group :development, :test do
+  gem 'rb-readline'
   gem 'rspec-rails'
   gem 'launchy'
   gem 'factory_girl_rails'

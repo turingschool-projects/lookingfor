@@ -27,7 +27,7 @@ describe Job do
 
   describe "Validations" do
     it { expect(instance).to validate_presence_of(:title) }
-    it { expect(instance).to validate_uniqueness_of(:title) }
+    xit { expect(instance).to validate_uniqueness_of(:title) }
     it { expect(instance).to allow_value(['ruby', 'go']).for(:raw_technologies) }
   end
 
@@ -48,7 +48,7 @@ describe Job do
     jobs[0].location.update_attributes(name: "DENVER, CO")
     jobs[1].location.update_attributes(name: "DENVER, COLORADO")
     jobs[2].location.update_attributes(name: "Denver is the kewlest place ever")
-    
+
     results = Job.by_location("Denver")
     expect(results.count).to eq(3)
   end
